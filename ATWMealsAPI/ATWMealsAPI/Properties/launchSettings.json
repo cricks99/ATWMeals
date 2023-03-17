@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:27938",
-      "sslPort": 44341
+      "applicationUrl": "http://localhost:17744",
+      "sslPort": 44325
     }
   },
   "profiles": {
-    "ATWMeals": {
+    "ATWMealsAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7125;http://localhost:5125",
+      "applicationUrl": "https://localhost:7077;http://localhost:5077",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

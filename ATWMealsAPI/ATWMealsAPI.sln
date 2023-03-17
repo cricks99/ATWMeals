@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATWMeals", "ATWMeals\ATWMeals.csproj", "{6CF1D6CB-32CD-4DA9-A72B-9383D7723B25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATWMealsAPI", "ATWMealsAPI\ATWMealsAPI.csproj", "{77B0FAD7-A0C3-4B21-851B-BFE8F335C2AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6CF1D6CB-32CD-4DA9-A72B-9383D7723B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CF1D6CB-32CD-4DA9-A72B-9383D7723B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CF1D6CB-32CD-4DA9-A72B-9383D7723B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CF1D6CB-32CD-4DA9-A72B-9383D7723B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B0FAD7-A0C3-4B21-851B-BFE8F335C2AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B0FAD7-A0C3-4B21-851B-BFE8F335C2AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B0FAD7-A0C3-4B21-851B-BFE8F335C2AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B0FAD7-A0C3-4B21-851B-BFE8F335C2AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4AC1E071-E961-453E-994D-C1B87C9D2542}
+		SolutionGuid = {E15F7402-5570-4DFC-8B42-DA6B992441A6}
 	EndGlobalSection
 EndGlobal
