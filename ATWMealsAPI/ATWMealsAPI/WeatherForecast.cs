@@ -1,4 +1,4 @@
-namespace ATWMeals
+namespace ATWMealsAPI
 {
   public class WeatherForecast
   {
