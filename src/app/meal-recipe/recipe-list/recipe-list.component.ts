@@ -16,7 +16,7 @@ export class RecipeListComponent {
   countryMeals: any;
 
   ngOnInit(): void {
-    this.repositoryService.getMealsByArea().subscribe(
+    this.repositoryService.getMealsByArea(this.country).subscribe(
       (response) => {this.countryMeals = response;}
     )
   }
