@@ -1,4 +1,6 @@
+using ATWMealsAPI.DAL;
 using Microsoft.AspNetCore.Mvc;
+using ATWMealsAPI.Models;
 
 namespace ATWMealsAPI.Controllers
 {
@@ -7,6 +9,27 @@ namespace ATWMealsAPI.Controllers
 
   public class CountryController : ControllerBase
   {
+    private ATWMealsRepository repo = new ATWMealsRepository();
 
+    [HttpGet()]
+    public List<Country> GetAllCountries()
+    {
+      return repo.GetAllCountries();
+    }
+
+    [HttpGet("{id}")]
+    public Country GetCountryById(int id)
+    {
+      return repo.GetCountryById(id);
+    }
+
+    //only used on initial load or adding missing countries
+    [HttpPost("addList")]
+    public void AddCountries(List<Country> countryList)
+    {
+      foreach(Country country in countryList)
+        if (repo.GetCountryByName(country.Name) == null)
+          repo.AddCountry(country.Name);
+    }
   }
 }
