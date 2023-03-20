@@ -9,30 +9,183 @@ namespace ATWMealsAPI.DAL
 
     public List<Country> GetAllCountries()
     {
-      return _dbContext.Countries.ToList();
+      return _dbContext.Countries
+        .AsNoTracking()
+        .ToList();
     }
 
-    public void setUnsetFavorite(int userId, int mealId)
+    public Country GetCountryById(int id)
     {
-      Favorite favorite = _dbContext.Favorites.FirstOrDefault(x => x.UserId == userId && x.MealId == mealId);
+      return _dbContext.Countries
+        .Where(x => x.Id == id)
+        .AsNoTracking()
+        .FirstOrDefault();
+    }
 
-      if (favorite == null)
+    public Country GetCountryByName(string name)
+    {
+      return _dbContext.Countries
+        .Where(x => x.Name == name)
+        .AsNoTracking()
+        .FirstOrDefault();
+    }
+
+    //only used on initial load or adding missing countries
+    public void AddCountry(string newCountry)
+    {
+      Country country = new Country() { Name = newCountry };
+
+      _dbContext.Countries.Add(country);
+      _dbContext.SaveChanges();
+    }
+        
+    public List<Favorite> GetFavoritesByUserId(int userId)
+    {
+      return _dbContext.Favorites
+        .Where(x => x.UserId == userId)
+        .AsNoTracking()
+        .ToList();
+    }
+
+    public Favorite GetFavoriteByUserIdByMealId(int userId, int mealId)
+    {
+      return _dbContext.Favorites
+        .Where(x => x.UserId == userId && x.MealId == mealId)
+        .AsNoTracking()
+        .FirstOrDefault();
+    }
+
+    public void AddFavorite(Favorite newFavorite)
+    {
+      _dbContext.Favorites.Add(newFavorite);
+      _dbContext.SaveChanges();
+    }
+
+    public void RemoveFavorite(Favorite removeFavorite)
+    {
+      _dbContext.Favorites.Remove(removeFavorite);
+      _dbContext.SaveChanges();
+    }
+
+    public List<Meal> GetAllMeals()
+    {
+      return _dbContext.Meals
+        .Include(x => x.Country)
+        .AsNoTracking()
+        .ToList();
+    }
+
+    public List<Meal> GetMealsByCountryId(int countryId)
+    {
+      return _dbContext.Meals
+        .Where(x => x.CountryId == countryId)
+        .Include(x => x.Country)
+        .AsNoTracking()
+        .ToList();
+    }
+
+    public Meal GetMealById(int id)
+    {
+      return _dbContext.Meals
+        .Where(x => x.Id == id)
+        .Include(x => x.Country)
+        .AsNoTracking()
+        .FirstOrDefault();
+    }
+
+    public Meal GetMealByMealDBId(int id)
+    {
+      return _dbContext.Meals
+        .Where(x => x.MealDBId == id)
+        .Include(x => x.Country)
+        .AsNoTracking()
+        .FirstOrDefault();
+    }
+
+    public void AddMeal(Meal newMeal)
+    {
+      _dbContext.Meals.Add(newMeal);
+      _dbContext.SaveChanges();
+    }
+
+    public List<MealRating> GetRatingsByMealId(int mealId)
+    {
+      return _dbContext.MealRatings
+        .Where(x => x.MealId == mealId)
+        .AsNoTracking()
+        .ToList();
+    }
+
+    public List<MealRating> GetRatingsByUserId(int id)
+    {
+      return _dbContext.MealRatings
+        .Where(x => x.UserId == id)
+        .AsNoTracking()
+        .ToList();
+    }
+
+    public double GetAverageRatingByMealId(int mealId)
+    {
+      try
       {
-        favorite = new Favorite();
-        favorite.UserId = userId;
-        favorite.MealId = mealId;
-
-        _dbContext.Favorites.Add(favorite);
+        return _dbContext.MealRatings
+          .Where(x => x.MealId == mealId)
+          .AsNoTracking()
+          .Select(x => x.Rating)
+          .Average();
       }
-      else
-        _dbContext.Favorites.Remove(favorite);
+      catch
+      {
+        return 0;
+      }
+    }
 
+    public void AddMealRating(MealRating newMealRating)
+    {
+      _dbContext.MealRatings.Add(newMealRating);
+      _dbContext.SaveChanges();
+    }
+
+    public List<Passport> GetPassportsByUserId(int id)
+    {
+      return _dbContext.Passports
+        .Where(x => x.UserId == id)
+        .Include(x => x.Country)
+        .AsNoTracking()
+        .ToList();
+    }
+
+    public void AddPassport(Passport newPassport)
+    {
+      _dbContext.Passports.Add(newPassport);
       _dbContext.SaveChanges();
     }
 
     public User GetUserByName(string name)
     {
-      return _dbContext.Users.Where(x => x.Name == name).Include("Favorite").Include("Passports").Include("MealRatings").FirstOrDefault();
+      return _dbContext.Users
+        .Where(x => x.Name.ToLower() == name.ToLower())
+        .Include(x => x.Favorites)
+        .Include(x => x.Passports)
+        .ThenInclude(x => x.Country)
+        .Include(x => x.MealRatings)
+        .AsNoTracking()
+        .FirstOrDefault();
+    }
+
+    public void AddUser(User newUser)
+    {
+      _dbContext.Users.Add(newUser);
+      _dbContext.SaveChanges();
+    }
+
+    public bool PasswordMatches(User user)
+    {
+      return _dbContext.Users
+        .Where(x => x.Name.ToLower() == user.Name.ToLower()
+          && x.Password == user.Password)
+        .AsNoTracking()
+        .Any();
     }
   }
 }
