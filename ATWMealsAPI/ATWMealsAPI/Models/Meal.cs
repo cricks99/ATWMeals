@@ -6,9 +6,8 @@ namespace ATWMealsAPI.Models
     public int MealDBId { get; set; }
     public string Name { get; set; }
     public int CountryId { get; set; }
+    public double? AvgRating { get; set; }
 
-    public virtual List<MealRating>? MealRatings { get; set; }
-
-    public virtual Country Country { get; set; }
+    public virtual Country? Country { get; set; }
   }
 }

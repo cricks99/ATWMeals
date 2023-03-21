@@ -4,6 +4,7 @@ using ATWMealsAPI.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ATWMealsAPI.Migrations
 {
     [DbContext(typeof(MealDBContext))]
-    partial class MealDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230319190039_make included tables optional")]
+    partial class makeincludedtablesoptional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace ATWMealsAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("FlagURL")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -58,6 +57,8 @@ namespace ATWMealsAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MealId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Favorites");
@@ -70,9 +71,6 @@ namespace ATWMealsAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<double?>("AvgRating")
-                        .HasColumnType("float");
 
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
@@ -110,6 +108,8 @@ namespace ATWMealsAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MealId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("MealRatings");
@@ -123,7 +123,7 @@ namespace ATWMealsAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -161,17 +161,27 @@ namespace ATWMealsAPI.Migrations
 
             modelBuilder.Entity("ATWMealsAPI.Models.Favorite", b =>
                 {
-                    b.HasOne("ATWMealsAPI.Models.User", null)
+                    b.HasOne("ATWMealsAPI.Models.Meal", "Meal")
+                        .WithMany()
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ATWMealsAPI.Models.User", "User")
                         .WithMany("Favorites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Meal");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ATWMealsAPI.Models.Meal", b =>
                 {
                     b.HasOne("ATWMealsAPI.Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("Meals")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -181,28 +191,48 @@ namespace ATWMealsAPI.Migrations
 
             modelBuilder.Entity("ATWMealsAPI.Models.MealRating", b =>
                 {
-                    b.HasOne("ATWMealsAPI.Models.User", null)
+                    b.HasOne("ATWMealsAPI.Models.Meal", "Meal")
+                        .WithMany("MealRatings")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ATWMealsAPI.Models.User", "User")
                         .WithMany("MealRatings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Meal");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ATWMealsAPI.Models.Passport", b =>
                 {
                     b.HasOne("ATWMealsAPI.Models.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId");
 
-                    b.HasOne("ATWMealsAPI.Models.User", null)
+                    b.HasOne("ATWMealsAPI.Models.User", "User")
                         .WithMany("Passports")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Country");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ATWMealsAPI.Models.Country", b =>
+                {
+                    b.Navigation("Meals");
+                });
+
+            modelBuilder.Entity("ATWMealsAPI.Models.Meal", b =>
+                {
+                    b.Navigation("MealRatings");
                 });
 
             modelBuilder.Entity("ATWMealsAPI.Models.User", b =>
