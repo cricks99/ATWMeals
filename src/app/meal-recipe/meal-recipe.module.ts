@@ -14,8 +14,7 @@ import { UserProfileModule } from '../user-profile/user-profile.module';
     RatingsComponent
   ],
   imports: [
-    CommonModule,
-    UserProfileModule
+    CommonModule
   ],
   exports: [
     RecipeListComponent,

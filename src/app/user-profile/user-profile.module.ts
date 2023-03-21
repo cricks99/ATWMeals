@@ -14,8 +14,7 @@ import { MealRecipeModule } from '../meal-recipe/meal-recipe.module';
     PassportComponent
   ],
   imports: [
-    CommonModule,
-    MealRecipeModule
+    CommonModule
   ],
   exports: [
     FavoritesComponent,
