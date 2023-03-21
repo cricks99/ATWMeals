@@ -5,16 +5,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MealRecipeModule } from './meal-recipe/meal-recipe.module';
+import { UserLoginComponent } from './user-login/user-login.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { UserProfileModule } from './user-profile/user-profile.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserLoginComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MealRecipeModule
+    MealRecipeModule,
+    UserProfileModule
+  ],
+  exports: [
+    UserLoginComponent,
+    AboutUsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
