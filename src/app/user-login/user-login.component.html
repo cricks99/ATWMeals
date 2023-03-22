@@ -1,1 +1,8 @@
 <p>user-login works!</p>
+
+<div *ngIf="user">
+    {{user.id}}
+    <div *ngFor="let passport of user.passports">
+    <p>{{passport.country.name}}</p>
+    </div>
+</div>
