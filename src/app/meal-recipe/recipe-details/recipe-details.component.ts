@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IMealDetail } from '../interfaces/mealdetail';
 import { MealRepositoryService } from '../meal-repository.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { MealRepositoryService } from '../meal-repository.service';
 })
 export class RecipeDetailsComponent {
   @Input() mealId: string = "52772";
-choiceMeal: any;
+choiceMeal: IMealDetail | undefined;
 ingredients: any;
 
 constructor(private repositoryService: MealRepositoryService) {}
@@ -19,6 +20,7 @@ ngOnInit(): void {
   )
 }
 
+/*
 ingredientsList() {
   for (let i = 1; i < 21; i++) {
     let ingredient;
@@ -31,4 +33,5 @@ ingredientsList() {
     }
   }
 }
+*/
 }
