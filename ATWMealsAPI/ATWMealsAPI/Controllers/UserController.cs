@@ -11,6 +11,12 @@ namespace ATWMealsAPI.Controllers
   {
     private ATWMealsRepository repo = new ATWMealsRepository();
 
+    [HttpGet("/id/{id}")]
+    public User GetUserById(int id)
+    {
+      return repo.GetUserById(id);
+    }
+
     [HttpGet("{userName}")]
     public User GetUserByName(string userName)
     {
