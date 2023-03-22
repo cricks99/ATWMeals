@@ -1,4 +1,8 @@
-<div>
-    <h2>{{choiceMeal?.strMeal}}</h2>
+<div *ngIf="choiceMeal">
+<!--     <h2>{{choiceMeal?.strMeal}}</h2> -->
+    <div *ngFor="let detail of choiceMeal.meals">
+        <h2>{{detail.strMeal}}</h2>
+    </div>
 </div>
+
 hi

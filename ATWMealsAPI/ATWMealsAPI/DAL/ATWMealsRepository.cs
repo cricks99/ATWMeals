@@ -71,6 +71,7 @@ namespace ATWMealsAPI.DAL
     {
       return _dbContext.Meals
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .ToList();
     }
@@ -80,6 +81,7 @@ namespace ATWMealsAPI.DAL
       return _dbContext.Meals
         .Where(x => x.CountryId == countryId)
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .ToList();
     }
@@ -89,6 +91,7 @@ namespace ATWMealsAPI.DAL
       return _dbContext.Meals
         .Where(x => x.Id == id)
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .FirstOrDefault();
     }
@@ -98,6 +101,7 @@ namespace ATWMealsAPI.DAL
       return _dbContext.Meals
         .Where(x => x.MealDBId == id)
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .FirstOrDefault();
     }
@@ -159,6 +163,18 @@ namespace ATWMealsAPI.DAL
     {
       _dbContext.Passports.Add(newPassport);
       _dbContext.SaveChanges();
+    }
+
+    public User GetUserById(int id)
+    {
+      return _dbContext.Users
+        .Where(x => x.Id == id)
+        .Include(x => x.Favorites)
+        .Include(x => x.Passports)
+        .ThenInclude(x => x.Country)
+        .Include(x => x.MealRatings)
+        .AsNoTracking()
+        .FirstOrDefault();
     }
 
     public User GetUserByName(string name)
