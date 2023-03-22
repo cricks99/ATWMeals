@@ -4,6 +4,7 @@ import { IMeal } from './interfaces/meal';
 import { IMealDetail } from './interfaces/mealdetail';
 import { ILocalMeal } from './interfaces/local-meal';
 import { ILocalMealRatings } from './interfaces/local-meal-ratings';
+import { ICountry } from './interfaces/country';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,14 @@ export class MealRepositoryService {
   private detailsApiUri = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
   private localMealApiUri = "https://localhost:7077/api/Meal"
   private localMealRatingsAPiUri = "https://localhost:7077/api/MealRating"
+  private countryAPIUri = "https://localhost:7077/api/Country"
 
   constructor(private http: HttpClient) { }
 
+  getAllCountries() {
+    return this.http.get<ICountry>(this.countryAPIUri);
+  }
+  
   getMealsByArea(country: string) {
     return this.http.get<IMeal>(this.areaApiUri + country);
   }
