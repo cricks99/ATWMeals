@@ -173,10 +173,17 @@ namespace ATWMealsAPI.DAL
         .FirstOrDefault();
     }
 
-    public void AddUser(User newUser)
+    public User AddUser(User newUser)
     {
-      _dbContext.Users.Add(newUser);
-      _dbContext.SaveChanges();
+      if (GetUserByName(newUser.Name) == null)
+      {
+        _dbContext.Users.Add(newUser);
+        _dbContext.SaveChanges();
+
+        return GetUserByName(newUser.Name);
+      }
+
+      return new User();
     }
 
     public bool PasswordMatches(User user)
@@ -186,6 +193,19 @@ namespace ATWMealsAPI.DAL
           && x.Password == user.Password)
         .AsNoTracking()
         .Any();
+    }
+
+    public User GetUserByPassword(User user)
+    {
+      return _dbContext.Users
+        .Where(x => x.Name.ToLower() == user.Name.ToLower()
+          && x.Password == user.Password)
+        .Include(x => x.Favorites)
+        .Include(x => x.Passports)
+        .ThenInclude(x => x.Country)
+        .Include(x => x.MealRatings)
+        .AsNoTracking()
+        .FirstOrDefault();
     }
   }
 }
