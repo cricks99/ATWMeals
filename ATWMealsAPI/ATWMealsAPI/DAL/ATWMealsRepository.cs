@@ -71,6 +71,7 @@ namespace ATWMealsAPI.DAL
     {
       return _dbContext.Meals
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .ToList();
     }
@@ -80,6 +81,7 @@ namespace ATWMealsAPI.DAL
       return _dbContext.Meals
         .Where(x => x.CountryId == countryId)
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .ToList();
     }
@@ -89,6 +91,7 @@ namespace ATWMealsAPI.DAL
       return _dbContext.Meals
         .Where(x => x.Id == id)
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .FirstOrDefault();
     }
@@ -98,6 +101,7 @@ namespace ATWMealsAPI.DAL
       return _dbContext.Meals
         .Where(x => x.MealDBId == id)
         .Include(x => x.Country)
+        .Include(x => x.MealRating)
         .AsNoTracking()
         .FirstOrDefault();
     }
@@ -161,6 +165,18 @@ namespace ATWMealsAPI.DAL
       _dbContext.SaveChanges();
     }
 
+    public User GetUserById(int id)
+    {
+      return _dbContext.Users
+        .Where(x => x.Id == id)
+        .Include(x => x.Favorites)
+        .Include(x => x.Passports)
+        .ThenInclude(x => x.Country)
+        .Include(x => x.MealRatings)
+        .AsNoTracking()
+        .FirstOrDefault();
+    }
+
     public User GetUserByName(string name)
     {
       return _dbContext.Users
@@ -173,10 +189,17 @@ namespace ATWMealsAPI.DAL
         .FirstOrDefault();
     }
 
-    public void AddUser(User newUser)
+    public User AddUser(User newUser)
     {
-      _dbContext.Users.Add(newUser);
-      _dbContext.SaveChanges();
+      if (GetUserByName(newUser.Name) == null)
+      {
+        _dbContext.Users.Add(newUser);
+        _dbContext.SaveChanges();
+
+        return GetUserByName(newUser.Name);
+      }
+
+      return new User();
     }
 
     public bool PasswordMatches(User user)
@@ -186,6 +209,19 @@ namespace ATWMealsAPI.DAL
           && x.Password == user.Password)
         .AsNoTracking()
         .Any();
+    }
+
+    public User GetUserByPassword(User user)
+    {
+      return _dbContext.Users
+        .Where(x => x.Name.ToLower() == user.Name.ToLower()
+          && x.Password == user.Password)
+        .Include(x => x.Favorites)
+        .Include(x => x.Passports)
+        .ThenInclude(x => x.Country)
+        .Include(x => x.MealRatings)
+        .AsNoTracking()
+        .FirstOrDefault();
     }
   }
 }

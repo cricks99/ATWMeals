@@ -11,6 +11,12 @@ namespace ATWMealsAPI.Controllers
   {
     private ATWMealsRepository repo = new ATWMealsRepository();
 
+    [HttpGet("")]
+    public List<Meal> GetAllMeals()
+    {
+      return repo.GetAllMeals();
+    }
+
     [HttpGet("{id}")]
     public Meal GetMealById(int id)
     {

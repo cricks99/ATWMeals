@@ -11,6 +11,12 @@ namespace ATWMealsAPI.Controllers
   {
     private ATWMealsRepository repo = new ATWMealsRepository();
 
+    [HttpGet("/id/{id}")]
+    public User GetUserById(int id)
+    {
+      return repo.GetUserById(id);
+    }
+
     [HttpGet("{userName}")]
     public User GetUserByName(string userName)
     {
@@ -23,8 +29,14 @@ namespace ATWMealsAPI.Controllers
       return repo.PasswordMatches(user);
     }
 
+    [HttpPost("GetUserByPassword")]
+    public User GetUserByPassword(User user)
+    {
+      return repo.GetUserByPassword(user);
+    }
+
     [HttpPost("add")]
-    public void AddUser(User user)
+    public User AddUser(User user)
     {
       //don't save any extra info that could be passed with this object
       if (user.Favorites != null)
@@ -34,7 +46,7 @@ namespace ATWMealsAPI.Controllers
       if (user.MealRatings != null)
         user.MealRatings = null;
 
-      repo.AddUser(user);
+      return repo.AddUser(user);
     }
   }
 }
