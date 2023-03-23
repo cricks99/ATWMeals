@@ -11,6 +11,12 @@ namespace ATWMealsAPI.Controllers
   {
     private ATWMealsRepository repo = new ATWMealsRepository();
 
+    [HttpGet("")]
+    public List<Favorite> GetAllFavorites()
+    {
+      return repo.GetAllFavorites();
+    }
+
     [HttpGet("{userId}")]
     public List<Favorite> GetFavoritesByUserId(int userId)
     {
