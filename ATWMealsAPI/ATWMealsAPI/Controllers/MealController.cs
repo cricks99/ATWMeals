@@ -14,7 +14,15 @@ namespace ATWMealsAPI.Controllers
     [HttpGet("")]
     public List<Meal> GetAllMeals()
     {
-      return repo.GetAllMeals();
+      List<Meal> meals = new List<Meal>();
+
+      foreach(Meal meal in repo.GetAllMeals())
+      {
+        meal.AvgRating = repo.GetAverageRatingByMealId(meal.Id);
+        meals.Add(meal);
+      }
+
+      return meals;
     }
 
     [HttpGet("{id}")]
