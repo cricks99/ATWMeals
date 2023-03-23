@@ -37,8 +37,8 @@ export class MealRepositoryService {
     return this.http.get<IMeal>(this.categoryApiUri + category);
   }
 
-  addLocalMeal(meal: IMeal) {
-    return this.http.post<IMeal>(`${this.localMealApiUri}/add`, meal);
+  addLocalMeal(meal: ILocalMeal) {
+    return this.http.post<ILocalMeal>(`${this.localMealApiUri}/add`, meal);
   }
 
   getRecipeById(mealId: string) {
