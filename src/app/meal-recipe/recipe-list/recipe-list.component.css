@@ -1,0 +1,21 @@
+body {
+  padding:30px;
+}
+
+li{
+  padding:5px;
+  font-weight:bold;
+  list-style:none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px , 1fr));
+  background: #e3dfd6;
+}
+
+button {
+  background: #e3dfd6;
+  border-style:none;
+  font-size: 30px;
+}
