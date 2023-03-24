@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { IMeal } from '../interfaces/meal';
 import { MealRepositoryService } from '../meal-repository.service';
 
@@ -8,16 +9,37 @@ import { MealRepositoryService } from '../meal-repository.service';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent {
-  @Input() country: string = "Canadian";
   
-
   constructor(private repositoryService: MealRepositoryService) {}
 
-  countryMeals: any;
+  countryMeals: IMeal | undefined;
+  countries: any;
+  selectedCountry?: any;
+  searchValue?: any;
+  foundIngredients: boolean = false;
+  ingRecipes: IMeal | undefined;
+
+  onSelect(country: any): void {
+    this.selectedCountry = country.name;
+    this.repositoryService.getMealsByArea(this.selectedCountry).subscribe(
+      (response) => {this.countryMeals = response;}
+    )
+  }
+
+  searchMealsByIngredient(form: NgForm) {
+      this.searchValue = form.form.value.searchValue;
+      this.repositoryService.getMealsByIngredient(this.searchValue).subscribe(
+        (response) => {
+          this.ingRecipes = response;
+          this.foundIngredients = true;
+        }
+      )
+      form.resetForm();
+  }
 
   ngOnInit(): void {
-    this.repositoryService.getMealsByArea(this.country).subscribe(
-      (response) => {this.countryMeals = response;}
+    this.repositoryService.getAllCountries().subscribe(
+      (response) => {this.countries = response;}
     )
   }
 }

@@ -1,5 +1,35 @@
-<h4>{{country}} Meals</h4>
+<h4 align="center">Search Recipes By Country</h4>
+<div class="grid">
+    <ng-container *ngFor="let country of countries">
+        <button type="button" (click)="onSelect(country)">
+            <span>{{country.name}}</span><br>
+            <img src="{{country.flagURL}}">
+        </button>
+    </ng-container>
+</div>
 
-<div *ngFor="let meal of countryMeals.meals">
-    <p>{{meal.strMeal}}</p>
+<div *ngIf="selectedCountry">
+    <h2>{{selectedCountry}} Recipes</h2>
+    <ul *ngFor="let meal of countryMeals?.meals, index as idMeal">
+        <!-- <li><a [routerLink] = "['/recipe-details', meal.idMeal]" routerLinkActive="active">{{meal.strMeal}}</a></li> -->
+        <li>{{meal.strMeal}}</li>
+    </ul>
+</div>
+
+<div align="center">
+    <h4 align="center">Search By Ingredient</h4>
+    <div class="searchBox">
+        <form #ingredientSearch="ngForm" (ngSubmit)="searchMealsByIngredient(ingredientSearch)">
+            <label for="searchValue">Search:</label>
+            <input name="searchValue" id="searchValue" ngModel />
+            <button>Find Recipes</button>
+        </form>
+    </div>
+        <br>
+    <div *ngIf="foundIngredients">
+        <ul *ngFor="let ing of ingRecipes?.meals, index as idMeal">
+            <!-- <li><a [routerLink] = "['/recipe-details', ing.idMeal]" routerLinkActive="active">{{ing.strMeal}}</a></li> -->
+            <li>{{ing.strMeal}}</li>
+        </ul>
+    </div>
 </div>
