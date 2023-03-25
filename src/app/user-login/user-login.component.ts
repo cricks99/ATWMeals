@@ -3,6 +3,7 @@ import { IUser } from '../user-profile/interfaces/user';
 import { UserRepositoryService } from '../user-profile/user-repository.service';
 import { NgForm } from '@angular/forms';
 import { LocalService } from '../local.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-login',
@@ -11,15 +12,12 @@ import { LocalService } from '../local.service';
 })
 export class UserLoginComponent {
   user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
-  //userTest:any = {name: "Bob", password: "Bob123"};
-  //userId: number = 0;
+  newAccount: boolean = false;
 
-  constructor(private repo: UserRepositoryService, private localStore: LocalService) { }
+  constructor(private repo: UserRepositoryService, private localStore: LocalService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    //this.addUser(this.userTest);  //this will only get created first time.  If exists, will return 0 for id
-    //this.getUser(this.userTest);
-    
+    this.newAccount = this.route.snapshot.params['index'] == 1;
     this.getUserObject();
   }
 
@@ -32,11 +30,22 @@ export class UserLoginComponent {
     }
   }
 
-  addUser(userLogin: any)
-  {
-    this.repo.addUser(userLogin).subscribe (
-      (response) => {this.user = response;});
+  addUser(form: NgForm) {
+    let userName = form.form.value.userName;
+    let password = form.form.value.password;
 
+    if (!userName || !password)
+      return;    
+      
+    this.repo.getUser(userName).subscribe (
+      (response) => {
+        if (!response)
+          this.repo.addUser({id: 0, name: userName, password: password, favorites: [], passports: [], mealRatings: []}).subscribe (
+            (response) => {this.getUser({name: userName, password: password})});
+        else
+          this.user.id = -2; //username already exists
+      }
+    )
   }
 
   loginUser(form: NgForm) {

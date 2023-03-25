@@ -1,21 +1,51 @@
+<p>Use your account to bookmark your favorite meals, rate them, and earn a passport stamp for each country meal you try.</p>
 <div *ngIf="user.id <= 0">
     <h2>Login</h2>
-    <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
-        <b>Login:</b><br />
-        <input type="text" name="userName" placeholder="Username" required ngModel />
-        <br />
-        <input type="password" name="password" placeholder="Password" required ngModel />
-        <button>Submit</button>
-    </form>
+    <ng-container *ngIf="!newAccount">
+        <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
+            <b>Login:</b><br />
+            <input type="text" name="userName" placeholder="Username" required ngModel />
+            <br />
+            <input type="password" name="password" placeholder="Password" required ngModel />
+            <button>Submit</button>
+            <p>
+                If you don't have an account, you can
+                <a [routerLink]="['/user-login', 1]">create</a>
+                one.
+            </p>
+        </form>
+    </ng-container>
+
+    <ng-container *ngIf="newAccount">
+        <form #newAccountForm="ngForm" (ngSubmit)="addUser(newAccountForm)">
+            <p>Easily create a new account by choosing your username and password.</p>
+            <b>Create Account:</b><br />
+            <input type="text" name="userName" placeholder="Username" required ngModel />
+            <br />
+            <input type="password" name="password" placeholder="Password" required ngModel />
+            <button>Submit</button>
+        </form>
+    </ng-container>
 </div>
 
-<div *ngIf="user.id === -1">
-    Invalid username or password.
+<div>
+    <ng-container *ngIf="user.id === -1">
+        <b>Invalid username or password.</b>
+    </ng-container>
+
+    <ng-container *ngIf="user.id === -2">
+        Account with this username already exists. Try again.
+    </ng-container>
 </div>
 
 <div *ngIf="user.id > 0">
-    You are currently logged in as {{user.name}}!
-    <br />
+    <ng-container *ngIf="newAccount">
+        <p>You have successfully created your account.</p>
+    </ng-container>
+    
+    <b>Welcome, {{user.name}}!</b><br />
+    You are currently logged in.
+    <br /><br />
     <form #logoutForm="ngForm" (ngSubmit)="logoutUser()">
         <button>Logout</button>
     </form>
