@@ -17,8 +17,9 @@ export class UserLoginComponent {
   constructor(private repo: UserRepositoryService, private localStore: LocalService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.newAccount = this.route.snapshot.params['index'] == 1;
     this.getUserObject();
+    this.newAccount = this.route.snapshot.params['index'] === "create";
+    
   }
 
   getUserObject() {
@@ -36,7 +37,7 @@ export class UserLoginComponent {
 
     if (!userName || !password)
       return;    
-      
+
     this.repo.getUser(userName).subscribe (
       (response) => {
         if (!response)
