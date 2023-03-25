@@ -6,8 +6,11 @@ import { RatingsComponent } from './ratings/ratings.component';
 import { FormsModule } from '@angular/forms';
 import { UserProfileModule } from '../user-profile/user-profile.module';
 import { HomeComponent } from '../core/home/home.component';
+import {MatIconModule} from '@angular/material/icon';
 
-
+const materialModules = [
+  MatIconModule
+];
 
 @NgModule({
   declarations: [
@@ -18,12 +21,14 @@ import { HomeComponent } from '../core/home/home.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    materialModules
   ],
   exports: [
     RecipeListComponent,
     RecipeDetailsComponent,
-    RatingsComponent
+    RatingsComponent,
+    materialModules
   ]
 })
 export class MealRecipeModule { }

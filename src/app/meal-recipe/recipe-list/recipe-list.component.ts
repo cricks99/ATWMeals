@@ -51,6 +51,17 @@ export class RecipeListComponent {
       form.resetForm();
   }
 
+  isUserFavorite(mealId: number): boolean
+  {
+    return this.user.favorites.find(x => x.mealId === mealId) != null;
+  }
+
+  setUnsetFavorite(userId: number, mealId: number) {
+    this.userRepo.setUnsetFavorite(userId, mealId).subscribe (
+      (response) => { this.getUserObject() }
+    )
+  }
+
   ngOnInit(): void {
     this.getUserObject();
 
