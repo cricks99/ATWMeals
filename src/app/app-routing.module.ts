@@ -7,6 +7,7 @@ import { UserLoginComponent } from './user-login/user-login.component';
 const routes: Routes = [
   { path: 'home-component', component: HomeComponent },
   { path: 'user-login', component: UserLoginComponent },
+  { path: 'user-login/:index', component: UserLoginComponent },
   { path: '', redirectTo: '/home-component', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
