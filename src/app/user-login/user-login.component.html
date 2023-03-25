@@ -1,8 +1,22 @@
-<p>user-login works!</p>
+<div *ngIf="user.id <= 0">
+    <h2>Login</h2>
+    <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
+        <b>Login:</b><br />
+        <input type="text" name="userName" placeholder="Username" required ngModel />
+        <br />
+        <input type="password" name="password" placeholder="Password" required ngModel />
+        <button>Submit</button>
+    </form>
+</div>
 
-<div *ngIf="user">
-    {{user.id}}
-    <div *ngFor="let passport of user.passports">
-        <p>{{passport.country.name}}</p>
-    </div>
+<div *ngIf="user.id === -1">
+    Invalid username or password.
+</div>
+
+<div *ngIf="user.id > 0">
+    You are currently logged in as {{user.name}}!
+    <br />
+    <form #logoutForm="ngForm" (ngSubmit)="logoutUser()">
+        <button>Logout</button>
+    </form>
 </div>

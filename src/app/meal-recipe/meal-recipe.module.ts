@@ -5,6 +5,7 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 import { RatingsComponent } from './ratings/ratings.component';
 import { FormsModule } from '@angular/forms';
 import { UserProfileModule } from '../user-profile/user-profile.module';
+import { HomeComponent } from '../core/home/home.component';
 
 
 
@@ -12,7 +13,8 @@ import { UserProfileModule } from '../user-profile/user-profile.module';
   declarations: [
     RecipeListComponent,
     RecipeDetailsComponent,
-    RatingsComponent
+    RatingsComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
