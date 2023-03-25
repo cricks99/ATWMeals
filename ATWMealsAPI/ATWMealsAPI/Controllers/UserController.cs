@@ -11,10 +11,16 @@ namespace ATWMealsAPI.Controllers
   {
     private ATWMealsRepository repo = new ATWMealsRepository();
 
-    [HttpGet("/id/{id}")]
+    [HttpGet("id/{id}")]
     public User GetUserById(int id)
     {
-      return repo.GetUserById(id);
+      User user = new User();
+      user = repo.GetUserById(id);
+
+      if (user != null)
+        return user;
+      else
+        return new User {Id = 0, Name = ""};
     }
 
     [HttpGet("{userName}")]
@@ -32,7 +38,13 @@ namespace ATWMealsAPI.Controllers
     [HttpPost("GetUserByPassword")]
     public User GetUserByPassword(User user)
     {
-      return repo.GetUserByPassword(user);
+      User returnUser = new User();
+      returnUser = repo.GetUserByPassword(user);
+
+      if (returnUser != null)
+        return returnUser;
+      else
+        return new User { Id = -1, Name = "" };
     }
 
     [HttpPost("add")]

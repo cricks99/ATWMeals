@@ -39,6 +39,13 @@ namespace ATWMealsAPI.DAL
       _dbContext.SaveChanges();
     }
         
+    public List<Favorite> GetAllFavorites()
+    {
+      return _dbContext.Favorites
+          .AsNoTracking()
+          .ToList();
+    }
+
     public List<Favorite> GetFavoritesByUserId(int userId)
     {
       return _dbContext.Favorites

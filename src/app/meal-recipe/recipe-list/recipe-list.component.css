@@ -1,0 +1,38 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  padding:30px;
+}
+
+li{
+  padding:5px;
+  font-weight:bold;
+  list-style:none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px , 1fr));
+  background: #e3dfd6;
+}
+
+button {
+  background: #e3dfd6;
+  border-style:none;
+  font-size: 30px;
+}
+
+.favorite-star {
+  color: lightblue;
+}
+
+.non-favorite-star {
+  color: aqua
+}
+
+.favorite-button-icons {
+    padding: 0;
+    border: none;
+    background: none;
+    padding-left: 5px;
+}

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IFavorite } from './interfaces/favorite';
 import { IPassport } from './interfaces/passport';
 import { IUser } from './interfaces/user';
 
@@ -37,7 +38,16 @@ export class UserRepositoryService {
     return this.http.post<IPassport>(`${this.apiPassportUri}/add`, passport);
   }
 
-  setUnsetFavorite(userId: string, mealId: string) {
-    return this.http.post(`${this.apiPassportUri}/setUnset/${userId}/${mealId}`, null);
+  getAllFavorites() {
+    return this.http.get<IFavorite>(`${this.apiFavoriteUri}`)
+  }
+
+  getFavoritesByUserId(userId: string)
+  {
+    return this.http.get<IFavorite>(`${this.apiFavoriteUri}/${userId}`)
+  }
+  
+  setUnsetFavorite(userId: number, mealId: number) {
+    return this.http.post(`${this.apiFavoriteUri}/setUnset/${userId}/${mealId}`, null);
   }
 }

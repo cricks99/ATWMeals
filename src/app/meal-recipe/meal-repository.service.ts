@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IMeal } from './interfaces/meal';
 import { IMealDetail } from './interfaces/mealdetail';
 import { ILocalMeal } from './interfaces/local-meal';
 import { ILocalMealRatings } from './interfaces/local-meal-ratings';
+import { ICountry } from './interfaces/country';
+import { INutrition } from './interfaces/nutrition';
+
+//const nutritionHeader = { "X-Api-Key": "3RdKNCwsdaRrIbbASOAkrQ==eu43DRdrzsgmS6cf" }
+//const requestOptions = {headers: new HttpHeaders(nutritionHeader)}
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +21,15 @@ export class MealRepositoryService {
   private detailsApiUri = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
   private localMealApiUri = "https://localhost:7077/api/Meal"
   private localMealRatingsAPiUri = "https://localhost:7077/api/MealRating"
-
+  private countryAPIUri = "https://localhost:7077/api/Country"
+  private nutritionAPIUri = "https://api.api-ninjas.com/v1/nutrition?query="
+  
   constructor(private http: HttpClient) { }
 
+  getAllCountries() {
+    return this.http.get<ICountry>(this.countryAPIUri);
+  }
+  
   getMealsByArea(country: string) {
     return this.http.get<IMeal>(this.areaApiUri + country);
   }
@@ -31,8 +42,18 @@ export class MealRepositoryService {
     return this.http.get<IMeal>(this.categoryApiUri + category);
   }
 
-  addLocalMeal(meal: IMeal) {
-    return this.http.post<IMeal>(`${this.localMealApiUri}/add`, meal);
+  //pass space-delimited ingridents to get back ingredient details list
+  //"salt potato clam chowder" would return 3 items in list
+  getNutrition(ingredients: string) {
+    return this.http.get<INutrition>(`${this.nutritionAPIUri}${ingredients}`,
+    {
+      headers: new HttpHeaders({ "X-Api-key": "3RdKNCwsdaRrIbbASOAkrQ==eu43DRdrzsgmS6cf" })
+    }
+    );
+  }
+
+  addLocalMeal(meal: ILocalMeal) {
+    return this.http.post<ILocalMeal>(`${this.localMealApiUri}/add`, meal);
   }
 
   getRecipeById(mealId: string) {

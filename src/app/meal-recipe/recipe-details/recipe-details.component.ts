@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IMealDetail } from '../interfaces/mealdetail';
+import { INutrition } from '../interfaces/nutrition';
 import { MealRepositoryService } from '../meal-repository.service';
 
 @Component({
@@ -10,13 +11,19 @@ import { MealRepositoryService } from '../meal-repository.service';
 export class RecipeDetailsComponent {
   @Input() mealId: string = "52772";
 choiceMeal: IMealDetail | undefined;
-ingredients: any;
+
+nutritions: INutrition | any;
+ingredients: string = "salt";
 
 constructor(private repositoryService: MealRepositoryService) {}
 
 ngOnInit(): void {
   this.repositoryService.getRecipeById(this.mealId).subscribe(
     (response) => {this.choiceMeal = response;}
+  )
+
+  this.repositoryService.getNutrition(this.ingredients).subscribe(
+    (response) => {this.nutritions = response;}
   )
 }
 
