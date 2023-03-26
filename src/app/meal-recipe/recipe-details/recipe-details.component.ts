@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IMealDetail } from '../interfaces/mealdetail';
 import { INutrition } from '../interfaces/nutrition';
 import { MealRepositoryService } from '../meal-repository.service';
@@ -9,15 +10,17 @@ import { MealRepositoryService } from '../meal-repository.service';
   styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent {
-  @Input() mealId: string = "52772";
+  //@Input() mealId: string = "52772";
 choiceMeal: IMealDetail | undefined;
 
+mealId: string = "";
 nutritions: INutrition | any;
 ingredients: string = "salt";
 
-constructor(private repositoryService: MealRepositoryService) {}
+constructor(private repositoryService: MealRepositoryService, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
+  this.mealId = this.route.snapshot.params['index'];
   this.repositoryService.getRecipeById(this.mealId).subscribe(
     (response) => {this.choiceMeal = response;}
   )
