@@ -12,5 +12,14 @@ here
     <h2>{{detail.name}}</h2>
 </div>
 
+<div>
+    <button (click)="showMealDetails()">Show Meal Details</button>
+    <div *ngIf="choiceMeal">
+      <!-- display meal details here -->
+    </div>
+  </div>
+  
+  
+
 
 hi
