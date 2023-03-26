@@ -1,16 +1,19 @@
-<div *ngIf="choiceMeal">
+<button onclick="window.close()">Close Tab</button>
+
+<p>
+    Meal details and nutrition information go here.
+<p>
+
+    <div *ngIf="choiceMeal">
 <!--     <h2>{{choiceMeal?.strMeal}}</h2> -->
     <div *ngFor="let detail of choiceMeal.meals">
         <h2>{{detail.strMeal}}</h2>
     </div>
 </div>
 
-here
-
-
-<div *ngFor="let detail of nutritions">
+<!-- <div *ngFor="let detail of nutritions">
     <h2>{{detail.name}}</h2>
 </div>
+-->
 
-
-hi
+<app-ratings></app-ratings>

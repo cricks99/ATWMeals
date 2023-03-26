@@ -1,6 +1,5 @@
-
 <nav>
-    <ul>
+    <ul *ngIf="!router.url.includes('/recipe-details')">
       <li><a routerLink="home-component">Country Meals</a></li>
       <li><a routerLink="profile-component">My Profile</a></li>
       <li><a routerLink="user-login">Account Login</a></li>

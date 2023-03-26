@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { UserProfileModule } from '../user-profile/user-profile.module';
 import { HomeComponent } from '../core/home/home.component';
 import {MatIconModule} from '@angular/material/icon';
+import { AppRoutingModule } from '../app-routing.module';
 
 const materialModules = [
   MatIconModule
@@ -22,6 +23,7 @@ const materialModules = [
   imports: [
     CommonModule,
     FormsModule,
+    AppRoutingModule,
     materialModules
   ],
   exports: [
