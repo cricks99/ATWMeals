@@ -25,7 +25,7 @@
                 </i>
             </button>
             
-            {{meal.strMeal}}
+            <a [routerLink] = "['/recipe-details', meal.idMeal, selectedCountry, meal.strMeal]" target="_blank">{{meal.strMeal}}</a>
         </li>
     </ul>
 </div>
