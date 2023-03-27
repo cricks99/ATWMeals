@@ -14,13 +14,18 @@ export class RecipeDetailsComponent {
 choiceMeal: IMealDetail | undefined;
 
 mealId: string = "";
+mealName: string = "";
+countryName: string = "";
 nutritions: INutrition | any;
 ingredients: string = "salt";
 
 constructor(private repositoryService: MealRepositoryService, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
-  this.mealId = this.route.snapshot.params['index'];
+  this.mealId = this.route.snapshot.params['mealId'];
+  this.countryName = this.route.snapshot.params['countryName'];
+  this.mealName = this.route.snapshot.params['mealName'];
+
   this.repositoryService.getRecipeById(this.mealId).subscribe(
     (response) => {this.choiceMeal = response;}
   )
