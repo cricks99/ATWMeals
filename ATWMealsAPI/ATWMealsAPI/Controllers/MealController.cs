@@ -98,15 +98,17 @@ namespace ATWMealsAPI.Controllers
       return meals;
     }
 
-    [HttpPost("add")]
-    public void AddMeal(Meal meal)
+    [HttpPost("add/{mealDBId}/{name}/{countryId}")]
+    public int AddMeal(int mealDBId, string name, int countryId)
     {
-      //don't save any extra info that could be passed with this object
-      if (meal.Country != null)
-        meal.Country = null;
-      meal.AvgRating = 0;
+      Meal meal = new Meal();
+      meal.MealDBId = mealDBId;
+      meal.Name = name;
+      meal.CountryId = countryId;
 
       repo.AddMeal(meal);
+
+      return repo.GetMealByMealDBId(mealDBId).Id;
     }
   }
 }

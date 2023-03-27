@@ -53,8 +53,8 @@ export class MealRepositoryService {
     );
   }
 
-  addLocalMeal(meal: ILocalMeal) {
-    return this.http.post<ILocalMeal>(`${this.localMealApiUri}/add`, meal);
+  addLocalMeal(mealDBId: number, name: string, countryId: number) {
+    return this.http.post<number>(`${this.localMealApiUri}/add/${mealDBId}/${name}/${countryId}`, null);
   }
 
   getRecipeById(mealId: string) {
@@ -82,6 +82,6 @@ export class MealRepositoryService {
   }
 
   addLocalMealRating(rating: ILocalMealRatings) {
-    return this.http.post<ILocalMealRatings>(`${this.localMealRatingsAPiUri}/add`, rating);
+    return this.http.post(`${this.localMealRatingsAPiUri}/add`, rating);
   }
 }
