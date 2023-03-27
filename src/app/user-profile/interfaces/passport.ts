@@ -8,5 +8,5 @@ export interface IPassport {
 export interface Country {
     id:      number;
     name:    string;
-    flagURL: null;
+    flagURL: string;
 }

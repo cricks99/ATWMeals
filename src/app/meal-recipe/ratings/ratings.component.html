@@ -44,21 +44,34 @@
         </ng-container>
         
         <ng-container *ngIf="triedMeal">
-            <p>Please rate this meal:</p>
-            <input type="radio" id="1" name="rating" value="1">
-            <label for="1">Poor (1)</label><br>
-            <input type="radio" id="2" name="rating" value="2">
-            <label for="2">Below Average (2)</label><br>
-            <input type="radio" id="3" name="rating" value="3">
-            <label for="3">Average (3)</label><br>
-            <input type="radio" id="5" name="rating" value="4">
-            <label for="3">Above Average (4)</label><br>
-            <input type="radio" id="5" name="rating" value="5">
-            <label for="3">Excellent (5)</label>
+            <form #newRatingForm="ngForm" (ngSubmit)="newRating(newRatingForm)">
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" ngModel class="form-control">
+                    <option value="1">Poor (1)</option>
+                    <option value="2">Below Average (2)</option>
+                    <option value="3">Average (3)</option>
+                    <option value="4">Above Average (4)</option>
+                    <option value="5">Excellent (5)</option>
+                </select>
+                <button type="submit">Submit</button>
+            </div>
+            </form>
+
+            <!-- <form #newRatingForm="ngForm" (ngSubmit)="newRating(newRatingForm)">
+                <p>Please rate this meal:</p>
+                <input type="radio" id="1" name="rating" value="1" ng-model="formRating">
+                <label for="1">Poor (1)</label><br>
+                <input type="radio" id="2" name="rating" value="2" ng-model="formRating">
+                <label for="2">Below Average (2)</label><br>
+                <input type="radio" id="3" name="rating" value="3" ng-model="formRating">
+                <label for="3">Average (3)</label><br>
+                <input type="radio" id="4" name="rating" value="4" ng-model="formRating">
+                <label for="4">Above Average (4)</label><br>
+                <input type="radio" id="5" name="rating" value="5" ng-model="formRating">
+                <label for="5">Excellent (5)</label><br /><br />
+                <button type="submit">Submit</button>
+            </form> -->
         </ng-container>
-
-       
-
     </ng-template>
-
 </div>
