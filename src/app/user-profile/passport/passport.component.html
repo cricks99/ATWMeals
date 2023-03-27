@@ -1,1 +1,102 @@
-<p>passport works!</p>
+<div class="book">
+
+    <!-- For Next/Prev Controls -->
+    <input type="checkbox" style="opacity:0;" id="c1">
+    <input type="checkbox" style="opacity:0;" id="c2">
+    <input type="checkbox" style="opacity:0;" id="c3">
+
+    <!-- Book Cover  -->
+    <div id="cover">
+      <!-- <img src="cover.jpg" alt="Cover"> -->
+    </div>
+
+    <!-- Pages -->
+    <div class="flip-book">
+
+      <!-- Page 1 -->
+      <div class="flip" id="p1">
+        <div class="front">
+          <img id="passportImage" src="https://media.istockphoto.com/id/187552400/photo/american-passport-with-biometric-data-in-microchip.jpg?s=612x612&w=0&k=20&c=3lrWIK4li4Q2V3h6fAGMU1_mJO8CQc0pbbA_PezVj4w=" alt="">
+          <label for="c1" class="next-btn">OPEN</label>
+        </div>
+        <div class="back" *ngIf="user">
+          <br><br><br><br><br><br><br>This passport belongs to:<br><br><br><span>{{user.name}}</span>
+          <label for="c1" class="back-btn">CLOSE</label>
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="flip" id="p2">
+        <div class="front" *ngIf="user">
+          
+          <br><br><br><br>You have visited {{totalUserCountryCount()}} countries!
+          <br><br><br>Click on a country to view the meal you tried<br><br>
+
+          <div class="passport-main" *ngFor="let passport of user.passports">
+            <!--<img src="">{{passport.country.flagURL}}-->
+            <a href="#">{{passport.country.name}}</a>
+          </div>
+          <h2></h2>
+
+          <!--<label for="c2" class="next-btn">NEXT</label>-->
+        </div>
+        <div class="back">
+          <label for="c2" class="back-btn">BACK</label>
+        </div>
+      </div>
+
+      <!-- Page 3 -->
+      <div class="flip" id="p3">
+        <div class="front">
+          <h2>Page 3</h2>
+          <!--<label for="c3" class="next-btn">NEXT</label>-->
+        </div>
+        <div class="back">
+          <label for="c3" class="back-btn">BACK</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!--<div *ngIf="user">
+  This passport belongs to {{user.name}}
+  <div *ngFor="let passport of user.passports">
+      <p>{{passport.country.name}}</p>
+  </div>
+</div>-->
+
+
+<!--<div class="grid">
+  <ng-container *ngFor="let passport of user.passports">
+      <button type="button" (click)="onSelect(passport)">
+          <span>{{user.passports}}</span><br>
+          <img src="{{country.flagURL}}">
+      </button>
+  </ng-container>
+</div>-->
+
+
+
+<!--<div *ngIf="selectedCountry">
+  <h2>{{selectedCountry}} Recipes</h2>
+  <ul *ngFor="let meal of countryMeals?.meals, index as idMeal"> -->
+      <!-- <li><a [routerLink] = "['/recipe-details', meal.idMeal]" routerLinkActive="active">{{meal.strMeal}}</a></li> -->
+      <!--<li>
+          <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +meal.idMeal)" class="favorite-button-icons">
+              <i>
+                  <ng-container *ngIf="isUserFavorite(+meal.idMeal); else nonFavorite">
+                      <mat-icon class="favorite-star" title="This is a favorite meal">star</mat-icon>
+                  </ng-container>
+                  
+                  <ng-template #nonFavorite>
+                      <mat-icon class="non-favorite-star" title="Click to make this a favorite meal">star_border</mat-icon>
+                  </ng-template>
+              </i>
+          </button>
+          
+          {{meal.strMeal}}
+      </li>
+  </ul>
+</div>-->
