@@ -4,24 +4,31 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { RatingsComponent } from './ratings/ratings.component';
 import { FormsModule } from '@angular/forms';
-import { UserProfileModule } from '../user-profile/user-profile.module';
+import { HomeComponent } from '../core/home/home.component';
+import {MatIconModule} from '@angular/material/icon';
+import { AppRoutingModule } from '../app-routing.module';
 
-
+const materialModules = [
+  MatIconModule
+];
 
 @NgModule({
   declarations: [
     RecipeListComponent,
     RecipeDetailsComponent,
-    RatingsComponent
+    RatingsComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
+    materialModules
   ],
   exports: [
     RecipeListComponent,
     RecipeDetailsComponent,
-    RatingsComponent
+    materialModules
   ]
 })
 export class MealRecipeModule { }

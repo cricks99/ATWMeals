@@ -7,9 +7,6 @@ import { ILocalMealRatings } from './interfaces/local-meal-ratings';
 import { ICountry } from './interfaces/country';
 import { INutrition } from './interfaces/nutrition';
 
-//const nutritionHeader = { "X-Api-Key": "3RdKNCwsdaRrIbbASOAkrQ==eu43DRdrzsgmS6cf" }
-//const requestOptions = {headers: new HttpHeaders(nutritionHeader)}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +25,10 @@ export class MealRepositoryService {
 
   getAllCountries() {
     return this.http.get<ICountry>(this.countryAPIUri);
+  }
+
+  getCountryIdByName(country: string) {
+    return this.http.get<number>(`${this.countryAPIUri}/name/${country}`);
   }
   
   getMealsByArea(country: string) {

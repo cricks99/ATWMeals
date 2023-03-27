@@ -9,6 +9,8 @@ import { MealRecipeModule } from './meal-recipe/meal-recipe.module';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { UserProfileModule } from './user-profile/user-profile.module';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,9 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MealRecipeModule,
-    UserProfileModule
+    UserProfileModule,
+    FormsModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     UserLoginComponent,

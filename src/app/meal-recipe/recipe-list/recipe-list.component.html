@@ -12,7 +12,21 @@
     <h2>{{selectedCountry}} Recipes</h2>
     <ul *ngFor="let meal of countryMeals?.meals, index as idMeal">
         <!-- <li><a [routerLink] = "['/recipe-details', meal.idMeal]" routerLinkActive="active">{{meal.strMeal}}</a></li> -->
-        <li>{{meal.strMeal}}</li>
+        <li>
+            <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +meal.idMeal)" class="favorite-button-icons">
+                <i>
+                    <ng-container *ngIf="isUserFavorite(+meal.idMeal); else nonFavorite">
+                        <mat-icon class="favorite-star" title="This is a favorite meal">star</mat-icon>
+                    </ng-container>
+                    
+                    <ng-template #nonFavorite>
+                        <mat-icon class="non-favorite-star" title="Click to make this a favorite meal">star_border</mat-icon>
+                    </ng-template>
+                </i>
+            </button>
+            
+            <a [routerLink] = "['/recipe-details', meal.idMeal, selectedCountry, meal.strMeal]" target="_blank">{{meal.strMeal}}</a>
+        </li>
     </ul>
 </div>
 

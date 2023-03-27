@@ -30,6 +30,15 @@ namespace ATWMealsAPI.DAL
         .FirstOrDefault();
     }
 
+    public int GetCountryIdByName(string name)
+    {
+      return _dbContext.Countries
+        .Where(x => x.Name == name)
+        .AsNoTracking()
+        .Select(x => x.Id)
+        .FirstOrDefault();
+    }
+
     //only used on initial load or adding missing countries
     public void AddCountry(string newCountry)
     {

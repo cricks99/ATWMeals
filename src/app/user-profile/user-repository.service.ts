@@ -47,7 +47,7 @@ export class UserRepositoryService {
     return this.http.get<IFavorite>(`${this.apiFavoriteUri}/${userId}`)
   }
   
-  setUnsetFavorite(userId: string, mealId: string) {
-    return this.http.post(`${this.apiPassportUri}/setUnset/${userId}/${mealId}`, null);
+  setUnsetFavorite(userId: number, mealId: number) {
+    return this.http.post(`${this.apiFavoriteUri}/setUnset/${userId}/${mealId}`, null);
   }
 }
