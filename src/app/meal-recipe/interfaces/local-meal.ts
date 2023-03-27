@@ -11,7 +11,7 @@ export interface ILocalMeal {
 export interface Country {
     id:      number;
     name:    string;
-    flagURL: null;
+    flagURL: string;
 }
 
 export interface MealRating {

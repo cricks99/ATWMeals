@@ -19,9 +19,17 @@ export class RatingsComponent {
   @Input() mealName: string = "";
   
   user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
-  localMeal!: ILocalMeal;
+  localMeal: ILocalMeal = {id: 0, mealDBId: 0, name: "", countryId: 0, avgRating: 0,
+    country: {id: 0, name: "", flagURL: ""},
+    mealRating: {id: 0, rating: 0, mealId: 0, userId: 0}}
+
   countryId: number = 0;
   triedMeal: boolean = false;
+  selectedRating: number = 0;
+
+  // form = new FormGroup({
+  //   formRating: new FormControl('', Validators.required)
+  // });
 
   constructor(private userRepo: UserRepositoryService, private mealRepo: MealRepositoryService, private localStore: LocalService, private route: ActivatedRoute) {}
 
@@ -66,5 +74,40 @@ export class RatingsComponent {
 
   triedThisMeal() {
     this.triedMeal = true;
+  }
+
+  newRating(form: NgForm) {
+    let rating = form.value.rating;
+
+    if (!this.localMeal)
+    this.mealRepo.addLocalMeal(+this.mealId, this.mealName, this.countryId).subscribe (
+      (response) => {
+        this.mealRepo.addLocalMealRating({id: 0, rating: rating, mealId: response, userId: this.user.id}).subscribe (
+          (response) => {
+            if (!this.hasPassport())
+            this.userRepo.addPassport(this.user.id, this.countryId).subscribe (
+              (response) => {}
+            );
+
+          this.getUserObject();
+          this.getLocalMealByMealDBId();
+          }
+        );
+      }
+    )
+
+    else
+      this.mealRepo.addLocalMealRating({id: 0, rating: rating, mealId: this.localMeal.id, userId: this.user.id}).subscribe (
+        (response) => {
+          if (!this.hasPassport())
+            this.userRepo.addPassport(this.user.id, this.countryId).subscribe (
+              (response) => {}
+            );
+
+          this.getUserObject();
+          this.getLocalMealByMealDBId();
+        }
+      )
+    
   }
 }
