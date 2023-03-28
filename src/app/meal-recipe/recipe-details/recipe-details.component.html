@@ -16,16 +16,11 @@
 </div>
 -->
 
-<app-ratings [countryName]="countryName" [mealId]="mealId" [mealName]="mealName"></app-ratings>
-
 <div>
     <button (click)="showMealDetails()">Show Meal Details</button>
     <div *ngIf="choiceMeal">
       <!-- display meal details here -->
     </div>
   </div>
-  
-  
 
-
-hi
+  <app-ratings [countryName]="countryName" [mealId]="mealId" [mealName]="mealName"></app-ratings>
