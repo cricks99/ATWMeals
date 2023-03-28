@@ -1,3 +1,4 @@
+<h1 align="center">* Around The World In 80 Meals *</h1>
 <h4 align="center">Search Recipes By Country</h4>
 <div class="grid">
     <ng-container *ngFor="let country of countries">
@@ -11,7 +12,6 @@
 <div *ngIf="selectedCountry">
     <h2>{{selectedCountry}} Recipes</h2>
     <ul *ngFor="let meal of countryMeals?.meals, index as idMeal">
-        <!-- <li><a [routerLink] = "['/recipe-details', meal.idMeal]" routerLinkActive="active">{{meal.strMeal}}</a></li> -->
         <li>
             <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +meal.idMeal)" class="favorite-button-icons">
                 <i>
@@ -42,8 +42,12 @@
         <br>
     <div *ngIf="foundIngredients">
         <ul *ngFor="let ing of ingRecipes?.meals, index as idMeal">
-            <!-- <li><a [routerLink] = "['/recipe-details', ing.idMeal]" routerLinkActive="active">{{ing.strMeal}}</a></li> -->
-            <li>{{ing.strMeal}}</li>
+            <li><a [routerLink] = "['/recipe-details', ing.idMeal, 'ing.strArea', ing.strMeal]" target="_blank">{{ing.strMeal}}</a></li>
         </ul>
     </div>
 </div>
+
+<!-- <div align="center">
+    <h4 align="center">Filter By Rating</h4>
+    <button (click)="filterByRating()">Sort By Highest Rated</button>
+</div> -->
