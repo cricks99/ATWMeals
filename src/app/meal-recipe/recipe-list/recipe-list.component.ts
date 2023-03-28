@@ -24,6 +24,7 @@ export class RecipeListComponent {
   foundIngredients: boolean = false;
   ingRecipes: IMeal | undefined;
   localMeals: any = [];
+  sortedRatings: any;
   
   // = {id: 0, mealDBId: 0, name: "", countryId: 0, avgRating: 0,
   //   country: {id: 0, name: "", flagURL: ""},
@@ -73,13 +74,19 @@ export class RecipeListComponent {
 
   getLocalMeals() {
     this.repositoryService.getLocalAllMeals().subscribe(
-      (response) => { this.localMeals = response }
+      (response) =>
+      {
+        this.localMeals = response;
+        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating)
+      }
     )
   }
 
   // filterByRating() {
   //   return this.localMeals.sort(this.localMeals.avgRating);
   // }
+
+  
 
   ngOnInit(): void {
     this.getUserObject();
