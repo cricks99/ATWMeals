@@ -42,10 +42,20 @@
         <br>
     <div *ngIf="foundIngredients">
         <ul *ngFor="let ing of ingRecipes?.meals, index as idMeal">
-            <li><a [routerLink] = "['/recipe-details', ing.idMeal, 'ing.strArea', ing.strMeal]" target="_blank">{{ing.strMeal}}</a></li>
+            <li><a [routerLink] = "['/recipe-details', ing.idMeal, 'UNK', ing.strMeal]" target="_blank">{{ing.strMeal}}</a></li>
         </ul>
     </div>
 </div>
+
+<div *ngFor="let meal of sortedRatings">
+    {{meal.name}}, Rating: {{meal.avgRating}}
+</div>
+
+//gets list of localMeals (meals that have a rating)
+<!-- <div *ngFor="let meal of localMeals">
+    {{meal.name}}, Rating: {{meal.avgRating}}
+</div> -->
+
 
 <!-- <div align="center">
     <h4 align="center">Filter By Rating</h4>
