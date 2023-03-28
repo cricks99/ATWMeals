@@ -47,10 +47,15 @@
     </div>
 </div>
 
-//gets list of localMeals (meals that have a rating)
-<div *ngFor="let meal of localMeals">
+<div *ngFor="let meal of sortedRatings">
     {{meal.name}}, Rating: {{meal.avgRating}}
 </div>
+
+//gets list of localMeals (meals that have a rating)
+<!-- <div *ngFor="let meal of localMeals">
+    {{meal.name}}, Rating: {{meal.avgRating}}
+</div> -->
+
 
 <!-- <div align="center">
     <h4 align="center">Filter By Rating</h4>
