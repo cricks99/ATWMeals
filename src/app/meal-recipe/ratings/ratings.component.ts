@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserRepositoryService } from 'src/app/user-profile/user-repository.service';
 import { MealRepositoryService } from '../meal-repository.service';
 import { ILocalMeal } from '../interfaces/local-meal';
+import { IMealDetail } from '../interfaces/mealdetail';
 
 @Component({
   selector: 'app-ratings',
@@ -34,11 +35,27 @@ export class RatingsComponent {
   constructor(private userRepo: UserRepositoryService, private mealRepo: MealRepositoryService, private localStore: LocalService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    //when coming from ingredients search and we don't have a country name
+    if (this.countryName === "UNK")
+    {
+      this.getCountryName();
+    }
+    else
+      this.getCountryIdByName();
+    
     this.getUserObject();
-    this.getCountryIdByName();
     this.getLocalMealByMealDBId();
   }
 
+  getCountryName() {
+    this.mealRepo.getRecipeById(this.mealId).subscribe (
+      (response) => {
+        this.countryName = response.meals[0].strArea
+        this.getCountryIdByName();
+      }
+    )
+  }
+  
   getUserObject() {
     let savedUserId = this.localStore.getData("userId");
 
