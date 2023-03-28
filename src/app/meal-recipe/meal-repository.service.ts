@@ -11,6 +11,7 @@ import { INutrition } from './interfaces/nutrition';
   providedIn: 'root'
 })
 export class MealRepositoryService {
+  [x: string]: any;
 
   private areaApiUri = "https://www.themealdb.com/api/json/v1/1/filter.php?a="
   private ingredientApiUri = "https://www.themealdb.com/api/json/v1/1/filter.php?i="
