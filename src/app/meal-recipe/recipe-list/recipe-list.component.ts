@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { LocalService } from 'src/app/local.service';
 import { IUser } from 'src/app/user-profile/interfaces/user';
 import { UserRepositoryService } from 'src/app/user-profile/user-repository.service';
+import { ILocalMeal } from '../interfaces/local-meal';
 import { IMeal } from '../interfaces/meal';
 import { MealRepositoryService } from '../meal-repository.service';
 
@@ -22,6 +23,7 @@ export class RecipeListComponent {
   searchValue?: any;
   foundIngredients: boolean = false;
   ingRecipes: IMeal | undefined;
+  localMeals: any;
   user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
 
   getUserObject() {
@@ -60,6 +62,16 @@ export class RecipeListComponent {
     this.userRepo.setUnsetFavorite(userId, mealId).subscribe (
       (response) => { this.getUserObject() }
     )
+  }
+
+  getLocalMeals() {
+    this.repositoryService.getLocalAllMeals().subscribe(
+      (response) => { this.localMeals}
+    )
+  }
+
+  filterByRating() {
+    return this.localMeals?.sort(this.localMeals.avgRating);
   }
 
   ngOnInit(): void {
