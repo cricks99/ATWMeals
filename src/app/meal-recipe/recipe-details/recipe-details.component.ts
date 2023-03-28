@@ -30,10 +30,32 @@ ngOnInit(): void {
     (response) => {this.choiceMeal = response;}
   )
 
+
+  // does a call to get nutrition information
   this.repositoryService.getNutrition(this.ingredients).subscribe(
     (response) => {this.nutritions = response;}
   )
 }
+
+getRecipeDetails() {
+  this.repositoryService.getRecipeById(this.mealId).subscribe(
+    (response) => {
+      this.choiceMeal = response;
+    }
+  );
+
+  this.repositoryService.getNutrition(this.ingredients).subscribe(
+    (response) => {
+      this.nutritions = response;
+    }
+  );
+}
+
+showMealDetails() {
+  this.getRecipeDetails();
+}
+
+
 
 /*
 ingredientsList() {
