@@ -1,1 +1,77 @@
-<p>ratings works!</p>
+<div *ngIf="user.id > 0 && +mealId > 0 ">
+    <hr />
+    <ng-container *ngIf="hasPassport()">
+        <b>Congratulations!</b> You own a passport stamp for the {{countryName}} country.
+    </ng-container>
+
+    <ng-container *ngIf="localMeal && localMeal.avgRating > 0; else noStars">
+        <h3>
+            This meal's overall rating
+        </h3>
+        
+        {{localMeal.avgRating}} out of 5
+    </ng-container>
+
+    <ng-template #noStars>
+        <p>This meal does not yet have any ratings.</p>
+    </ng-template>
+
+    <ng-container *ngIf="localMeal && userMealRating() > 0; else notRated">
+        <h3>
+            Your rating for this meal:
+        </h3>
+
+        {{userMealRating()}} stars
+    </ng-container>
+
+    <ng-template #notRated>
+        <p *ngIf="!triedMeal">
+            Have you tried this meal recipe yet?<br />
+        
+            If so, provide a rating
+            
+            <ng-container *ngIf="!hasPassport()">
+                and earn a {{countryName}} passport stamp!
+            </ng-container>
+
+            <ng-container *ngIf="hasPassport()">
+                to help others that are searching for meals.
+            </ng-container>
+        </p>
+        
+        <ng-container *ngIf="!triedMeal">
+            <button (click)="triedThisMeal()">I've tried this recipe</button>
+        </ng-container>
+        
+        <ng-container *ngIf="triedMeal">
+            <form #newRatingForm="ngForm" (ngSubmit)="newRating(newRatingForm)">
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" ngModel class="form-control">
+                    <option value="1">Poor (1)</option>
+                    <option value="2">Below Average (2)</option>
+                    <option value="3">Average (3)</option>
+                    <option value="4">Above Average (4)</option>
+                    <option value="5">Excellent (5)</option>
+                </select>
+                <button type="submit">Submit</button>
+            </div>
+            </form>
+
+            <!-- <form #newRatingForm="ngForm" (ngSubmit)="newRating(newRatingForm)">
+                <p>Please rate this meal:</p>
+                <input type="radio" id="1" name="rating" value="1" ng-model="formRating">
+                <label for="1">Poor (1)</label><br>
+                <input type="radio" id="2" name="rating" value="2" ng-model="formRating">
+                <label for="2">Below Average (2)</label><br>
+                <input type="radio" id="3" name="rating" value="3" ng-model="formRating">
+                <label for="3">Average (3)</label><br>
+                <input type="radio" id="4" name="rating" value="4" ng-model="formRating">
+                <label for="4">Above Average (4)</label><br>
+                <input type="radio" id="5" name="rating" value="5" ng-model="formRating">
+                <label for="5">Excellent (5)</label><br /><br />
+                <button type="submit">Submit</button>
+            </form> -->
+        </ng-container>
+    </ng-template>
+</div>

@@ -1,4 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { LocalService } from 'src/app/local.service';
+import { IUser } from 'src/app/user-profile/interfaces/user';
+import { UserRepositoryService } from 'src/app/user-profile/user-repository.service';
+import { ILocalMeal } from '../interfaces/local-meal';
 import { IMeal } from '../interfaces/meal';
 import { MealRepositoryService } from '../meal-repository.service';
 
@@ -8,16 +13,72 @@ import { MealRepositoryService } from '../meal-repository.service';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent {
-  @Input() country: string = "Canadian";
   
+  constructor(private repositoryService: MealRepositoryService, private localStore: LocalService,
+    private userRepo: UserRepositoryService) {}
 
-  constructor(private repositoryService: MealRepositoryService) {}
+  countryMeals: IMeal | undefined;
+  countries: any;
+  selectedCountry?: any;
+  searchValue?: any;
+  foundIngredients: boolean = false;
+  ingRecipes: IMeal | undefined;
+  localMeals: any;
+  user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
 
-  countryMeals: any;
+  getUserObject() {
+    let savedUserId = this.localStore.getData("userId");
+
+    if (savedUserId && +savedUserId > 0) {
+      this.userRepo.getUserById(savedUserId).subscribe (
+        (response) => {this.user = response;});
+    }
+  }
+
+  onSelect(country: any): void {
+    this.selectedCountry = country.name;
+    this.repositoryService.getMealsByArea(this.selectedCountry).subscribe(
+      (response) => {this.countryMeals = response;}
+    )
+  }
+
+  searchMealsByIngredient(form: NgForm) {
+      this.searchValue = form.form.value.searchValue;
+      this.repositoryService.getMealsByIngredient(this.searchValue).subscribe(
+        (response) => {
+          this.ingRecipes = response;
+          this.foundIngredients = true;
+        }
+      )
+      form.resetForm();
+  }
+
+  isUserFavorite(mealId: number): boolean
+  {
+    return this.user.favorites.find(x => x.mealId === mealId) != null;
+  }
+
+  setUnsetFavorite(userId: number, mealId: number) {
+    this.userRepo.setUnsetFavorite(userId, mealId).subscribe (
+      (response) => { this.getUserObject() }
+    )
+  }
+
+  getLocalMeals() {
+    this.repositoryService.getLocalAllMeals().subscribe(
+      (response) => { this.localMeals}
+    )
+  }
+
+  filterByRating() {
+    return this.localMeals?.sort(this.localMeals.avgRating);
+  }
 
   ngOnInit(): void {
-    this.repositoryService.getMealsByArea(this.country).subscribe(
-      (response) => {this.countryMeals = response;}
+    this.getUserObject();
+
+    this.repositoryService.getAllCountries().subscribe(
+      (response) => {this.countries = response;}
     )
   }
 }

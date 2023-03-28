@@ -34,8 +34,8 @@ export class UserRepositoryService {
     return this.http.get<IPassport>(`${this.apiPassportUri}/${id}`)
   }
 
-  addPassport(passport: IPassport) {
-    return this.http.post<IPassport>(`${this.apiPassportUri}/add`, passport);
+  addPassport(userId: number, countryId: number) {
+    return this.http.post(`${this.apiPassportUri}/add/${userId}/${countryId}`, null);
   }
 
   getAllFavorites() {
@@ -47,7 +47,7 @@ export class UserRepositoryService {
     return this.http.get<IFavorite>(`${this.apiFavoriteUri}/${userId}`)
   }
   
-  setUnsetFavorite(userId: string, mealId: string) {
-    return this.http.post(`${this.apiPassportUri}/setUnset/${userId}/${mealId}`, null);
+  setUnsetFavorite(userId: number, mealId: number) {
+    return this.http.post(`${this.apiFavoriteUri}/setUnset/${userId}/${mealId}`, null);
   }
 }

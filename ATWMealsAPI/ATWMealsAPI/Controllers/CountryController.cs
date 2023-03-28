@@ -23,6 +23,12 @@ namespace ATWMealsAPI.Controllers
       return repo.GetCountryById(id);
     }
 
+    [HttpGet("name/{name}")]
+    public int GetCountryIdByName(string name)
+    {
+      return repo.GetCountryIdByName(name);
+    }
+
     //only used on initial load or adding missing countries
     [HttpPost("addList")]
     public void AddCountries(List<Country> countryList)

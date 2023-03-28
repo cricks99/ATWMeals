@@ -17,9 +17,13 @@ namespace ATWMealsAPI.Controllers
       return repo.GetPassportsByUserId(userId);
     }
 
-    [HttpPost("add")]
-    public void AddPassport(Passport passport)
+    [HttpPost("add/{userId}/{countryId}")]
+    public void AddPassport(int userId, int countryId)
     {
+      Passport passport = new Passport();
+      passport.CountryId = countryId;
+      passport.UserId = userId;
+
       repo.AddPassport(passport);
     }
   }

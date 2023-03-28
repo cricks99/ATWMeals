@@ -7,9 +7,6 @@ import { ILocalMealRatings } from './interfaces/local-meal-ratings';
 import { ICountry } from './interfaces/country';
 import { INutrition } from './interfaces/nutrition';
 
-//const nutritionHeader = { "X-Api-Key": "3RdKNCwsdaRrIbbASOAkrQ==eu43DRdrzsgmS6cf" }
-//const requestOptions = {headers: new HttpHeaders(nutritionHeader)}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +26,10 @@ export class MealRepositoryService {
 
   getAllCountries() {
     return this.http.get<ICountry>(this.countryAPIUri);
+  }
+
+  getCountryIdByName(country: string) {
+    return this.http.get<number>(`${this.countryAPIUri}/name/${country}`);
   }
   
   getMealsByArea(country: string) {
@@ -53,8 +54,8 @@ export class MealRepositoryService {
     );
   }
 
-  addLocalMeal(meal: ILocalMeal) {
-    return this.http.post<ILocalMeal>(`${this.localMealApiUri}/add`, meal);
+  addLocalMeal(mealDBId: number, name: string, countryId: number) {
+    return this.http.post<number>(`${this.localMealApiUri}/add/${mealDBId}/${name}/${countryId}`, null);
   }
 
   getRecipeById(mealId: string) {
@@ -82,6 +83,6 @@ export class MealRepositoryService {
   }
 
   addLocalMealRating(rating: ILocalMealRatings) {
-    return this.http.post<ILocalMealRatings>(`${this.localMealRatingsAPiUri}/add`, rating);
+    return this.http.post(`${this.localMealRatingsAPiUri}/add`, rating);
   }
 }

@@ -1,5 +1,53 @@
-<h4>{{country}} Meals</h4>
-
-<div *ngFor="let meal of countryMeals.meals">
-    <p>{{meal.strMeal}}</p>
+<h1 align="center">* Around The World In 80 Meals *</h1>
+<h4 align="center">Search Recipes By Country</h4>
+<div class="grid">
+    <ng-container *ngFor="let country of countries">
+        <button type="button" (click)="onSelect(country)">
+            <span>{{country.name}}</span><br>
+            <img src="{{country.flagURL}}">
+        </button>
+    </ng-container>
 </div>
+
+<div *ngIf="selectedCountry">
+    <h2>{{selectedCountry}} Recipes</h2>
+    <ul *ngFor="let meal of countryMeals?.meals, index as idMeal">
+        <li>
+            <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +meal.idMeal)" class="favorite-button-icons">
+                <i>
+                    <ng-container *ngIf="isUserFavorite(+meal.idMeal); else nonFavorite">
+                        <mat-icon class="favorite-star" title="This is a favorite meal">star</mat-icon>
+                    </ng-container>
+                    
+                    <ng-template #nonFavorite>
+                        <mat-icon class="non-favorite-star" title="Click to make this a favorite meal">star_border</mat-icon>
+                    </ng-template>
+                </i>
+            </button>
+            
+            <a [routerLink] = "['/recipe-details', meal.idMeal, selectedCountry, meal.strMeal]" target="_blank">{{meal.strMeal}}</a>
+        </li>
+    </ul>
+</div>
+
+<div align="center">
+    <h4 align="center">Search By Ingredient</h4>
+    <div class="searchBox">
+        <form #ingredientSearch="ngForm" (ngSubmit)="searchMealsByIngredient(ingredientSearch)">
+            <label for="searchValue">Search:</label>
+            <input name="searchValue" id="searchValue" ngModel />
+            <button>Find Recipes</button>
+        </form>
+    </div>
+        <br>
+    <div *ngIf="foundIngredients">
+        <ul *ngFor="let ing of ingRecipes?.meals, index as idMeal">
+            <li><a [routerLink] = "['/recipe-details', ing.idMeal, 'ing.strArea', ing.strMeal]" target="_blank">{{ing.strMeal}}</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- <div align="center">
+    <h4 align="center">Filter By Rating</h4>
+    <button (click)="filterByRating()">Sort By Highest Rated</button>
+</div> -->
