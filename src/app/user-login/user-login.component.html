@@ -7,7 +7,7 @@
             <input type="text" name="userName" placeholder="Username" required ngModel />
             <br />
             <input type="password" name="password" placeholder="Password" required ngModel />
-            <button>Submit</button>
+            <button class="btn btn-sm btn-primary">Submit</button>
             <p>
                 If you don't have an account, you can
                 <a [routerLink]="['/user-login', 'create']">create</a>
@@ -23,7 +23,7 @@
             <input type="text" name="userName" placeholder="Username" required ngModel />
             <br />
             <input type="password" name="password" placeholder="Password" required ngModel />
-            <button>Submit</button>
+            <button class="btn btn-sm btn-primary">Submit</button>
         </form>
     </ng-container>
 </div>
@@ -47,6 +47,6 @@
     You are currently logged in.
     <br /><br />
     <form #logoutForm="ngForm" (ngSubmit)="logoutUser()">
-        <button>Logout</button>
+        <button class="btn btn-sm btn-primary">Logout</button>
     </form>
 </div>
