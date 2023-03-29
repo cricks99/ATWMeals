@@ -148,11 +148,11 @@ namespace ATWMealsAPI.DAL
     {
       try
       {
-        return _dbContext.MealRatings
+        return Math.Round(_dbContext.MealRatings
           .Where(x => x.MealId == mealId)
           .AsNoTracking()
           .Select(x => x.Rating)
-          .Average();
+          .Average() * 10) / 10;
       }
       catch
       {

@@ -1,11 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { IUser } from 'src/app/user-profile/interfaces/user';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LocalService } from 'src/app/local.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserRepositoryService } from 'src/app/user-profile/user-repository.service';
 import { MealRepositoryService } from '../meal-repository.service';
 import { ILocalMeal } from '../interfaces/local-meal';
+import { IMealDetail } from '../interfaces/mealdetail';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-ratings',
@@ -26,19 +29,39 @@ export class RatingsComponent {
   countryId: number = 0;
   triedMeal: boolean = false;
   selectedRating: number = 0;
+  disableButtons: boolean = true;
+  createdPassport: boolean = false;
+  numRatings: number = 0;
 
-  // form = new FormGroup({
-  //   formRating: new FormControl('', Validators.required)
-  // });
+  ctrl = new FormControl<number | null>(null, Validators.required);
 
   constructor(private userRepo: UserRepositoryService, private mealRepo: MealRepositoryService, private localStore: LocalService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    //when coming from ingredients search and we don't have a country name
+    if (this.countryName === "UNK")
+      this.getCountryName();
+    else
+      this.getCountryIdByName();
+    
     this.getUserObject();
-    this.getCountryIdByName();
     this.getLocalMealByMealDBId();
   }
 
+  toggleRatingSelected() {
+    this.disableButtons = !this.disableButtons;
+    this.disableButtons ? this.ctrl.enable() : this.ctrl.disable();
+  }
+
+  getCountryName() {
+    this.mealRepo.getRecipeById(this.mealId).subscribe (
+      (response) => {
+        this.countryName = response.meals[0].strArea
+        this.getCountryIdByName();
+      }
+    )
+  }
+  
   getUserObject() {
     let savedUserId = this.localStore.getData("userId");
 
@@ -55,7 +78,13 @@ export class RatingsComponent {
 
   getLocalMealByMealDBId() {
     this.mealRepo.getLocalMealByMealDBId(this.mealId).subscribe (
-      (response) => {this.localMeal = response}
+      (response) => {
+        this.localMeal = response;
+        this.numRatings = 0;
+
+        for (var rating in this.localMeal.mealRating)
+          this.numRatings++;
+      }
     )
 }
 
@@ -76,18 +105,16 @@ export class RatingsComponent {
     this.triedMeal = true;
   }
 
-  newRating(form: NgForm) {
-    let rating = form.value.rating;
-
+  saveRating(rating: any) {
     if (!this.localMeal)
     this.mealRepo.addLocalMeal(+this.mealId, this.mealName, this.countryId).subscribe (
       (response) => {
         this.mealRepo.addLocalMealRating({id: 0, rating: rating, mealId: response, userId: this.user.id}).subscribe (
           (response) => {
             if (!this.hasPassport())
-            this.userRepo.addPassport(this.user.id, this.countryId).subscribe (
-              (response) => {}
-            );
+              this.userRepo.addPassport(this.user.id, this.countryId).subscribe (
+                (response) => {this.createdPassport = true;}
+              );
 
           this.getUserObject();
           this.getLocalMealByMealDBId();
@@ -101,7 +128,7 @@ export class RatingsComponent {
         (response) => {
           if (!this.hasPassport())
             this.userRepo.addPassport(this.user.id, this.countryId).subscribe (
-              (response) => {}
+              (response) => {this.createdPassport = true;}
             );
 
           this.getUserObject();

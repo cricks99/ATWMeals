@@ -15,7 +15,7 @@ import { MealRepositoryService } from '../meal-repository.service';
 export class RecipeListComponent {
   
   constructor(private repositoryService: MealRepositoryService, private localStore: LocalService,
-    private userRepo: UserRepositoryService) {}
+    private userRepo: UserRepositoryService) { }
 
   countryMeals: IMeal | undefined;
   countries: any;
@@ -23,7 +23,13 @@ export class RecipeListComponent {
   searchValue?: any;
   foundIngredients: boolean = false;
   ingRecipes: IMeal | undefined;
-  localMeals: any;
+  localMeals: any = [];
+  sortedRatings: any;
+  
+  // = {id: 0, mealDBId: 0, name: "", countryId: 0, avgRating: 0,
+  //   country: {id: 0, name: "", flagURL: ""},
+  //   mealRating: {id: 0, rating: 0, mealId: 0, userId: 0}}
+
   user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
 
   getUserObject() {
@@ -32,6 +38,8 @@ export class RecipeListComponent {
     if (savedUserId && +savedUserId > 0) {
       this.userRepo.getUserById(savedUserId).subscribe (
         (response) => {this.user = response;});
+
+    this.getLocalMeals();
     }
   }
 
@@ -66,13 +74,19 @@ export class RecipeListComponent {
 
   getLocalMeals() {
     this.repositoryService.getLocalAllMeals().subscribe(
-      (response) => { this.localMeals}
+      (response) =>
+      {
+        this.localMeals = response;
+        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating)
+      }
     )
   }
 
-  filterByRating() {
-    return this.localMeals?.sort(this.localMeals.avgRating);
-  }
+  // filterByRating() {
+  //   return this.localMeals.sort(this.localMeals.avgRating);
+  // }
+
+  
 
   ngOnInit(): void {
     this.getUserObject();
