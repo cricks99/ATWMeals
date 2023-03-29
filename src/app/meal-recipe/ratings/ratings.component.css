@@ -1,0 +1,18 @@
+/* favorite ratings start */
+i {
+    position: relative;
+    display: inline-block;
+    font-size: 1.25rem;
+    padding-right: 0.1rem;
+    color: #d3d3d3;
+  }
+  
+  .filled {
+    color: blue;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  /* favorite ratings end */
+  

@@ -11,6 +11,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,10 +26,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserProfileModule,
     FormsModule,
     BrowserAnimationsModule,
+    NgbModule
   ],
   exports: [
     UserLoginComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
