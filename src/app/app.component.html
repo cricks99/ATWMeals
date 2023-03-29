@@ -1,10 +1,9 @@
-<nav>
-    <ul *ngIf="!router.url.includes('/recipe-details')">
-      <li><a routerLink="home-component">Country Meals</a></li>
-      <li><a routerLink="profile-component">My Profile</a></li>
-      <li><a routerLink="user-login">Account Login</a></li>
-    </ul>
-  </nav>
+<a routerLink="home-component" class="btn btn-info">Country Meals</a>
+&nbsp;
+<a routerLink="profile-component" class="btn btn-info">My Profile</a>
+&nbsp;
+<a routerLink="user-login" class="btn btn-info">Account Login</a>
+<hr />
+<p></p>
 
 <router-outlet></router-outlet>
-
