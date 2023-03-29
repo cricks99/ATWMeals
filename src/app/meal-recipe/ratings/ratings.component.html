@@ -27,6 +27,10 @@
 
 <p></p>
 
+<div *ngIf="user.id === 0">
+    <b>You will need to log in to rate this meal and earn a passport stamp for this country.</b>
+</div>
+
 <div *ngIf="user.id > 0 && +mealId > 0 ">
     <ng-container *ngIf="localMeal && userMealRating() > 0; else notRated">
         <ngb-rating [rate]="userMealRating()" [formControl]="ctrl" [starTemplate]="t" [max]="5" [readonly]="true"></ngb-rating>
