@@ -5,8 +5,10 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 import { RatingsComponent } from './ratings/ratings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from '../core/home/home.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from '../app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 const materialModules = [
   MatIconModule
@@ -22,9 +24,10 @@ const materialModules = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
-    materialModules
+    materialModules,
+    NgbModule,
+    ReactiveFormsModule
   ],
   exports: [
     RecipeListComponent,
