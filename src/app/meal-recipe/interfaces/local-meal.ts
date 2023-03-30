@@ -15,8 +15,9 @@ export interface Country {
 }
 
 export interface MealRating {
-    id:     number;
-    rating: number;
-    mealId: number;
-    userId: number;
+    id:          number;
+    rating:      number;
+    mealId:      number;
+    userId:      number;
+    countryName: string;
 }
