@@ -1,14 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { IUser } from 'src/app/user-profile/interfaces/user';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { LocalService } from 'src/app/local.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserRepositoryService } from 'src/app/user-profile/user-repository.service';
 import { MealRepositoryService } from '../meal-repository.service';
 import { ILocalMeal } from '../interfaces/local-meal';
-import { IMealDetail } from '../interfaces/mealdetail';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-ratings',
@@ -86,7 +83,7 @@ export class RatingsComponent {
           this.numRatings++;
       }
     )
-}
+  }
 
   userMealRating() : number {
     if (!this.localMeal)
@@ -135,6 +132,5 @@ export class RatingsComponent {
           this.getLocalMealByMealDBId();
         }
       )
-    
   }
 }
