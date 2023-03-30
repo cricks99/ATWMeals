@@ -18,7 +18,15 @@ namespace ATWMealsAPI.Controllers
       user = repo.GetUserById(id);
 
       if (user != null)
+      {
+        for (int i = 0; i < user.MealRatings.Count; i++)
+        {
+          user.MealRatings[i].CountryName = repo.GetCountryName(user.MealRatings[i].MealId);
+        }
+
         return user;
+      }
+        
       else
         return new User {Id = 0, Name = ""};
     }
@@ -26,7 +34,14 @@ namespace ATWMealsAPI.Controllers
     [HttpGet("{userName}")]
     public User GetUserByName(string userName)
     {
-      return repo.GetUserByName(userName);
+      User user = repo.GetUserByName(userName);
+
+      for (int i = 0; i < user.MealRatings.Count; i++)
+      {
+        user.MealRatings[i].CountryName = repo.GetCountryName(user.MealRatings[i].MealId);
+      }
+
+      return user;
     }
 
     [HttpPost("ValidPassword")]
@@ -42,7 +57,14 @@ namespace ATWMealsAPI.Controllers
       returnUser = repo.GetUserByPassword(user);
 
       if (returnUser != null)
+      {
+        for (int i = 0; i < returnUser.MealRatings.Count; i++)
+        {
+          returnUser.MealRatings[i].CountryName = repo.GetCountryName(returnUser.MealRatings[i].MealId);
+        }
+
         return returnUser;
+      }
       else
         return new User { Id = -1, Name = "" };
     }

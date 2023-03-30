@@ -6,5 +6,7 @@ namespace ATWMealsAPI.Models
     public int Rating { get; set; }
     public int MealId { get; set; }
     public int UserId { get; set; }
+
+    public virtual string? CountryName { get; set; }
   }
 }
