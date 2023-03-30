@@ -20,7 +20,8 @@
           <label for="c1" class="next-btn">OPEN</label>
         </div>
         <div class="back" *ngIf="user">
-          <br><br><br><br><br><br><br>This passport belongs to:<br><br><br><span>{{user.name}}</span>
+          <p class="Amy">This passport belongs to:<br><br><span>{{user.name}}</span></p>
+          <br><br><img id="passportFade" src="https://www.pngall.com/wp-content/uploads/2/Travel-PNG-Download-Image.png">
           <label for="c1" class="back-btn">CLOSE</label>
         </div>
       </div>
@@ -29,26 +30,46 @@
       <div class="flip" id="p2">
         <div class="front" *ngIf="user">
           
-          <br><br><br><br>You have visited {{totalUserCountryCount()}} countries!
-          <br><br><br>Click on a country to view the meal you tried<br><br>
+          <br><br><br><br>You have experienced {{totalUserCountryCount()}} countries!
+          <br><br><br>Click a country's flag to look back on your visit!<br><br>
+          <div>
+            <ng-container *ngFor="let passport of user.passports">
+                <button type="button" class="button" (click)="onSelect(passport.country.name)">
+                  <img id="flag" src="{{passport.country.flagURL}}">
+                  
+                  <!--<label for="c2">
+                    <img id="flag" src="{{passport.country.flagURL}}">
+                  </label>-->
+                </button>
+            </ng-container>
+        </div>
 
-          <div class="passport-main" *ngFor="let passport of user.passports">
-            <!--<img src="">{{passport.country.flagURL}}-->
-            <a href="#">{{passport.country.name}}</a>
-          </div>
-          <h2></h2>
-
-          <!--<label for="c2" class="next-btn">NEXT</label>-->
+          <label for="c2" class="next-btn">NEXT</label>
         </div>
         <div class="back">
+          <br><br><br><br><br><br><img id="passportFade" src="https://www.pngall.com/wp-content/uploads/2/Travel-PNG-Download-Image.png">
           <label for="c2" class="back-btn">BACK</label>
         </div>
       </div>
 
       <!-- Page 3 -->
       <div class="flip" id="p3">
-        <div class="front">
-          <h2>Page 3</h2>
+        <div class="front" *ngIf="user">
+          <div class="form-group">
+            <label for="ratedMeals">Your past meals!</label>
+            <select id="ratedMeals" name="ratedMeals" ngModel class="form-control">
+              <!--<ng-container *ngFor="let mealRating of user.mealRatings">
+                
+                <ng-container *ngIf="mealRating.countryName === selectedPassportCountry">
+                  <ng-container *ngIf="setMealName(mealRating.mealId)">
+                  <option value="{{mealRating.mealId}}">{{mealRating.mealId}}</option>
+                  </ng-container>
+                </ng-container>
+              </ng-container>-->
+
+            </select>
+          </div>
+          
           <!--<label for="c3" class="next-btn">NEXT</label>-->
         </div>
         <div class="back">
@@ -58,14 +79,23 @@
     </div>
   </div>
 
-
-
 <!--<div *ngIf="user">
   This passport belongs to {{user.name}}
   <div *ngFor="let passport of user.passports">
       <p>{{passport.country.name}}</p>
   </div>
 </div>-->
+
+
+
+<!--<div *ngFor="let mealRating of user.mealRatings">
+  <div *ngIf=""
+  {{mealRating.mealId}}, Rating: {{mealRating.rating}}
+</div>-->
+
+<div *ngFor="let meal of sortedRatings">
+  {{meal.name}}, Rating: {{meal.avgRating}}
+</div>
 
 
 <!--<div class="grid">

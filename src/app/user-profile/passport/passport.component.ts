@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { LocalService } from 'src/app/local.service';
+import { ILocalMeal } from 'src/app/meal-recipe/interfaces/local-meal';
 import { IUser } from '../interfaces/user';
 import { UserRepositoryService } from '../user-repository.service';
+import { MealRepositoryService } from 'src/app/meal-recipe/meal-repository.service';
 
 @Component({
   selector: 'app-passport',
@@ -10,13 +12,17 @@ import { UserRepositoryService } from '../user-repository.service';
 })
 export class PassportComponent {
 
-  constructor(private repositoryService: UserRepositoryService, private localStore: LocalService,
+  constructor(private repositoryService: UserRepositoryService, private mealRepositoryService: MealRepositoryService, private localStore: LocalService,
     private userRepo: UserRepositoryService) {}
 
-    //countryMeals: IMeal | undefined;
+    userPassportRatings: IUser | undefined;
     user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
+    mealName: string = "";
     countries: any;
-    selectedCountry?: any;
+    selectedPassportCountry?: any;
+    userRatings: any;
+    localMeals: any = [];
+    sortedRatings: any;
 
     getUserObject() {
     let savedUserId = this.localStore.getData("userId");
@@ -34,18 +40,23 @@ export class PassportComponent {
   totalUserCountryCount(): number {
     return this.user.passports.length
   }
+
+
   
-  //onSelect(country: any): void {
-    //this.selectedCountry = country.name;
-    //this.repositoryService.getPassportByUserId(this.selectedCountry).subscribe(
-      //(response) => {this.countryMeals = response;}
-    //)
-  //}
+  setMealName(mealId: string): number {
+    this.mealRepositoryService.getLocalMealById(mealId).subscribe(
+      (response) =>
+      {
+        this.mealName = response.name;
+      }
+    )
+    //this.mealName = "test";
+    return 1;
+  }
 
-
-
-
-
+  onSelect(country: any): void {
+    this.selectedPassportCountry = country;
+  }
 
 }
 
