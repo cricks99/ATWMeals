@@ -1,11 +1,19 @@
 <h1 align="center">* Around The World In 80 Meals *</h1>
 
+<ng-template #t let-fill="fill">
+    <i class="bi-star-fill">
+        <i *ngIf="fill > 0" class="bi-star-fill filled" [style.width.%]="fill"></i>
+    </i>
+</ng-template>
+
 <div align="center">
     <button (click)="toggleTop10()">{{buttonTextTop10}}</button>
     <br><br>
     <div *ngIf="showTop10">
         <div *ngFor="let meal of sortedRatings">
-            <a [routerLink] = "['/recipe-details', meal.mealDBId, 'UNK', meal.name]" target="_blank">{{meal.name}}</a> | Rating: {{meal.avgRating}}
+            <a [routerLink] = "['/recipe-details', meal.mealDBId, 'UNK', meal.name]" target="_blank">{{meal.name}}</a>
+            &nbsp;
+            <ngb-rating [rate]="meal.avgRating" [starTemplate]="t" [max]="5" [readonly]="true"></ngb-rating> 
         </div>
     </div>
 </div>
