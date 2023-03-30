@@ -25,10 +25,10 @@ export class RecipeListComponent {
   ingRecipes: IMeal | undefined;
   localMeals: any = [];
   sortedRatings: any;
-  
-  // = {id: 0, mealDBId: 0, name: "", countryId: 0, avgRating: 0,
-  //   country: {id: 0, name: "", flagURL: ""},
-  //   mealRating: {id: 0, rating: 0, mealId: 0, userId: 0}}
+  showTop10: boolean = false;
+  showIngSearch: boolean = false;
+  buttonTextTop10: string = "View Our Top 10 Rated Recipes";
+  buttonTextIngSearch: string = "Search By Ingredient";
 
   user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
 
@@ -77,16 +77,32 @@ export class RecipeListComponent {
       (response) =>
       {
         this.localMeals = response;
-        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating)
+        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating).slice(0,10);
       }
     )
   }
 
-  // filterByRating() {
-  //   return this.localMeals.sort(this.localMeals.avgRating);
-  // }
+  toggleTop10(): void{
+    this.showTop10 = !this.showTop10;
+    if (this.showTop10) {
+      this.buttonTextTop10 = "Hide Top 10";
+    }
+    else
+    {
+      this.buttonTextTop10 = "View Our Top 10 Rated Recipes";
+    }
+  }
 
-  
+  toggleIngSearch(): void{
+    this.showIngSearch = !this.showIngSearch;
+    if (this.showIngSearch) {
+      this.buttonTextIngSearch = "Hide Search";
+    }
+    else
+    {
+      this.buttonTextIngSearch = "Search By Ingredient";
+    }
+  }
 
   ngOnInit(): void {
     this.getUserObject();
