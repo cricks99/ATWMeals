@@ -26,6 +26,9 @@ ngOnInit(): void {
   this.countryName = this.route.snapshot.params['countryName'];
   this.mealName = this.route.snapshot.params['mealName'];
 
+  
+  
+
   this.repositoryService.getRecipeById(this.mealId).subscribe(
     (response) => {this.choiceMeal = response;}
   )
@@ -37,23 +40,41 @@ ngOnInit(): void {
   )
 }
 
-getRecipeDetails() {
-  this.repositoryService.getRecipeById(this.mealId).subscribe(
-    (response) => {
-      this.choiceMeal = response;
-    }
-  );
 
-  this.repositoryService.getNutrition(this.ingredients).subscribe(
-    (response) => {
-      this.nutritions = response;
-    }
-  );
-}
+getIngredients(): void{
+ let getingredient: string[] = [];
 
-showMealDetails() {
-  this.getRecipeDetails();
-}
+  getingredient.push('strIngredient1');
+ 
+  // let getingredient: string[] = [];
+  // this.getIngredients = [
+  //   esponse.strIngredient1,
+ 
+  // ]
+
+  // for (let i = 1; i <= 20; i++) {
+  //   const ingredient = response['strIngredient' + i];
+  //   if (ingredient) {
+  //     this.ingredients.push(ingredient);
+    // }
+  }
+  
+
+  //create an array of ingridents so it can be looped through. 1. in array, 2. loop through them. 3. display
+  //getrecipe id but before getnutriton abouve get nution use array list. but loop through ingreds and siplay
+  //create an array with 2 strings 
+  //strIngredient1 and strMeasure1
+    //strIngredient1 and strMeasure1
+  //strIngredient1 and strMeasure1
+  //strIngredient1 and strMeasure1
+//etc..
+
+//then loop through array to create a single string in this.ingredients
+//this.ingredients = strMeasure1+" " + strIngreident1 + ", " +
+//strmeasure2 + " " +
+
+// an array with two strings 
+// }
 
 
 
