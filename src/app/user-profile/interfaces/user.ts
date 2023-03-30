@@ -4,14 +4,13 @@ export interface IUser {
     password:    string;
     favorites:   Favorite[];
     passports:   Passport[];
-    mealRatings: Favorite[];
+    mealRatings: MealRatings[];
 }
 
 export interface Favorite {
     id:      number;
     userId:  number;
     mealId:  number;
-    rating?: number;
 }
 
 export interface Passport {
@@ -19,6 +18,14 @@ export interface Passport {
     userId:    number;
     countryId: number;
     country:   Country;
+}
+
+export interface MealRatings {
+    id:          number;
+    userId:      number;
+    mealId:      number;
+    rating?:     number;
+    countryName: string;
 }
 
 export interface Country {
