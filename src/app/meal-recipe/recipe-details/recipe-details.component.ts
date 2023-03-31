@@ -17,7 +17,7 @@ mealId: string = "";
 mealName: string = "";
 countryName: string = "";
 nutritions: INutrition | any;
-ingredients: string = "salt";
+ingredients: string = "3/4 cup soy  sauce, 1/2 teaspoon ground ginger, 4 Tablespoons cornstarch";
 
 constructor(private repositoryService: MealRepositoryService, private route: ActivatedRoute) {}
 
@@ -30,6 +30,17 @@ ngOnInit(): void {
     (response) => {this.choiceMeal = response;}
   )
 
+  //create an array with 2 strings
+  //strIngredient1 and strMeasure1
+  //strIngredient2 and strMeasure2
+  //strIngredient3 and strMeasure3
+  //etc.
+
+  //then loop through array to create a single string in this.ingredients
+  //this.ingredients = strMeasure1 + " " + strIngreident1 + ", " +
+  //  strMeasure2 + " " + strIngreident3 + ", " +
+  //  strMeasure3 + " " + strIngreident3 + ", "
+  //etc.
 
   // does a call to get nutrition information
   this.repositoryService.getNutrition(this.ingredients).subscribe(

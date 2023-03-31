@@ -4,7 +4,7 @@ export interface IUser {
     password:    string;
     favorites:   Favorite[];
     passports:   Passport[];
-    mealRatings: MealRatings[];
+    mealRatings: MealRating[];
 }
 
 export interface Favorite {
@@ -20,12 +20,12 @@ export interface Passport {
     country:   Country;
 }
 
-export interface MealRatings {
+export interface MealRating {
     id:          number;
     userId:      number;
     mealId:      number;
     rating?:     number;
-    countryName: string;
+    countryName?: string;
 }
 
 export interface Country {
