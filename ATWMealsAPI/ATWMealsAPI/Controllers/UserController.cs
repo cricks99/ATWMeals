@@ -36,10 +36,11 @@ namespace ATWMealsAPI.Controllers
     {
       User user = repo.GetUserByName(userName);
 
-      for (int i = 0; i < user.MealRatings.Count; i++)
-      {
-        user.MealRatings[i].CountryName = repo.GetCountryName(user.MealRatings[i].MealId);
-      }
+      if (user != null)
+        for (int i = 0; i < user.MealRatings.Count; i++)
+        {
+          user.MealRatings[i].CountryName = repo.GetCountryName(user.MealRatings[i].MealId);
+        }
 
       return user;
     }
@@ -70,7 +71,7 @@ namespace ATWMealsAPI.Controllers
     }
 
     [HttpPost("add")]
-    public User AddUser(User user)
+    public void AddUser(User user)
     {
       //don't save any extra info that could be passed with this object
       if (user.Favorites != null)
@@ -80,7 +81,7 @@ namespace ATWMealsAPI.Controllers
       if (user.MealRatings != null)
         user.MealRatings = null;
 
-      return repo.AddUser(user);
+      repo.AddUser(user);
     }
   }
 }
