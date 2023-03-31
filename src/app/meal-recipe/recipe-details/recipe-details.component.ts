@@ -16,9 +16,11 @@ choiceMeal: IMealDetail | undefined;
 mealId: string = "";
 mealName: string = "";
 countryName: string = "";
+
 nutritions1:  any = "";
 nutritions2: INutrition | any;
 ingredients: string = "";
+
 
 constructor(private repositoryService: MealRepositoryService, private route: ActivatedRoute) {}
 
@@ -60,6 +62,17 @@ ngOnInit(): void {
       (response) => {this.nutritions1 = response;}
 
 
+  //create an array with 2 strings
+  //strIngredient1 and strMeasure1
+  //strIngredient2 and strMeasure2
+  //strIngredient3 and strMeasure3
+  //etc.
+
+  //then loop through array to create a single string in this.ingredients
+  //this.ingredients = strMeasure1 + " " + strIngreident1 + ", " +
+  //  strMeasure2 + " " + strIngreident3 + ", " +
+  //  strMeasure3 + " " + strIngreident3 + ", "
+  //etc.
 
     
   )

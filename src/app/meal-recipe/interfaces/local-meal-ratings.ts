@@ -1,6 +1,7 @@
 export interface ILocalMealRatings {
-    id:     number;
-    rating: number;
-    mealId: number;
-    userId: number;
+    id:          number;
+    rating:      number;
+    mealId:      number;
+    userId:      number;
+    countryName: string;
 }

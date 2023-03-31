@@ -1,9 +1,60 @@
 <h1 align="center">* Around The World In 80 Meals *</h1>
+
+<ng-template #t let-fill="fill">
+    <i class="bi-star-fill">
+        <i *ngIf="fill > 0" class="bi-star-fill filled" [style.width.%]="fill"></i>
+    </i>
+</ng-template>
+
+<div align="center">
+    <button (click)="toggleTop10()">{{buttonTextTop10}}</button>
+    <br><br>
+    <div *ngIf="showTop10">
+        <div *ngFor="let meal of sortedRatings">
+            <a [routerLink] = "['/recipe-details', meal.mealDBId, 'UNK', meal.name]" target="_blank">{{meal.name}}</a>
+            &nbsp;
+            <ngb-rating [rate]="meal.avgRating" [starTemplate]="t" [max]="5" [readonly]="true"></ngb-rating> 
+        </div>
+    </div>
+</div>
+<br><br>
+
+<div align="center">
+    <button (click)="toggleIngSearch()">{{buttonTextIngSearch}}</button>
+    <br><br>
+    <div *ngIf="showIngSearch">
+        <form #ingredientSearch="ngForm" (ngSubmit)="searchMealsByIngredient(ingredientSearch)">
+            <label for="searchValue">Search:</label>
+            <input name="searchValue" id="searchValue" ngModel />
+            <button>Find Recipes</button>
+        </form>
+    <br>
+    <div *ngIf="foundIngredients">
+        <ul *ngFor="let ing of ingRecipes?.meals, index as idMeal">
+            <li>
+                <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +ing.idMeal)" class="favorite-button-icons">
+                    <i>
+                        <ng-container *ngIf="isUserFavorite(+ing.idMeal); else nonFavorite">
+                            <mat-icon class="favorite-star" title="This is a favorite meal">star</mat-icon>
+                        </ng-container>
+                        
+                        <ng-template #nonFavorite>
+                            <mat-icon class="non-favorite-star" title="Click to make this a favorite meal">star_border</mat-icon>
+                        </ng-template>
+                    </i>
+                </button>
+                <a [routerLink] = "['/recipe-details', ing.idMeal, 'UNK', ing.strMeal]" target="_blank">{{ing.strMeal}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br><br>
+
 <h4 align="center">Search Recipes By Country</h4>
 <div class="grid">
     <ng-container *ngFor="let country of countries">
         <button type="button" (click)="onSelect(country)">
-            <span>{{country.name}}</span><br>
+            <span>{{country.name}}</span><br><br>
             <img src="{{country.flagURL}}">
         </button>
     </ng-container>
@@ -11,6 +62,7 @@
 
 <div *ngIf="selectedCountry">
     <h2>{{selectedCountry}} Recipes</h2>
+
     <ul *ngFor="let meal of countryMeals?.meals, index as idMeal">
         <li>
             <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +meal.idMeal)" class="favorite-button-icons">
@@ -29,35 +81,3 @@
         </li>
     </ul>
 </div>
-
-<div align="center">
-    <h4 align="center">Search By Ingredient</h4>
-    <div class="searchBox">
-        <form #ingredientSearch="ngForm" (ngSubmit)="searchMealsByIngredient(ingredientSearch)">
-            <label for="searchValue">Search:</label>
-            <input name="searchValue" id="searchValue" ngModel />
-            <button>Find Recipes</button>
-        </form>
-    </div>
-        <br>
-    <div *ngIf="foundIngredients">
-        <ul *ngFor="let ing of ingRecipes?.meals, index as idMeal">
-            <li><a [routerLink] = "['/recipe-details', ing.idMeal, 'UNK', ing.strMeal]" target="_blank">{{ing.strMeal}}</a></li>
-        </ul>
-    </div>
-</div>
-
-<div *ngFor="let meal of sortedRatings">
-    {{meal.name}}, Rating: {{meal.avgRating}}
-</div>
-
-//gets list of localMeals (meals that have a rating)
-<!-- <div *ngFor="let meal of localMeals">
-    {{meal.name}}, Rating: {{meal.avgRating}}
-</div> -->
-
-
-<!-- <div align="center">
-    <h4 align="center">Filter By Rating</h4>
-    <button (click)="filterByRating()">Sort By Highest Rated</button>
-</div> -->
