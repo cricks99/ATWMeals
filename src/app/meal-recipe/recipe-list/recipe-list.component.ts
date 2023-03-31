@@ -27,8 +27,7 @@ export class RecipeListComponent {
   sortedRatings: any;
   showTop10: boolean = false;
   showIngSearch: boolean = false;
-  buttonTextTop10: string = "View Our Top 10 Rated Recipes";
-  buttonTextIngSearch: string = "Search By Ingredient";
+  showCountryFlags: boolean = true;
 
   user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
 
@@ -58,7 +57,6 @@ export class RecipeListComponent {
           this.foundIngredients = true;
         }
       )
-      form.resetForm();
   }
 
   isUserFavorite(mealId: number): boolean
@@ -83,25 +81,21 @@ export class RecipeListComponent {
   }
 
   toggleTop10(): void{
-    this.showTop10 = !this.showTop10;
-    if (this.showTop10) {
-      this.buttonTextTop10 = "Hide Top 10";
-    }
-    else
-    {
-      this.buttonTextTop10 = "View Our Top 10 Rated Recipes";
-    }
+    this.showTop10 = true;
+    this.showIngSearch = false;
+    this.showCountryFlags = false;
   }
 
   toggleIngSearch(): void{
-    this.showIngSearch = !this.showIngSearch;
-    if (this.showIngSearch) {
-      this.buttonTextIngSearch = "Hide Search";
-    }
-    else
-    {
-      this.buttonTextIngSearch = "Search By Ingredient";
-    }
+    this.showIngSearch = true;
+    this.showTop10 = false;
+    this.showCountryFlags = false;
+  }
+
+  toggleCountryFlags(): void{
+    this.showCountryFlags = true;
+    this.showTop10 = false;
+    this.showIngSearch = false;
   }
 
   ngOnInit(): void {

@@ -1,52 +1,68 @@
-<p>Use your account to bookmark your favorite meals, rate them, and earn a passport stamp for each country meal you try.</p>
-<div *ngIf="user.id <= 0">
-    <h2>Login</h2>
-    <ng-container *ngIf="!newAccount">
-        <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
-            <b>Login:</b><br />
-            <input type="text" name="userName" placeholder="Username" required ngModel />
-            <br />
-            <input type="password" name="password" placeholder="Password" required ngModel />
-            <button class="btn btn-sm btn-primary">Submit</button>
-            <p>
-                If you don't have an account, you can
-                <a [routerLink]="['/user-login', 'create']">create</a>
-                one.
-            </p>
-        </form>
-    </ng-container>
+<div class="w3-main" style="margin-left:300px">
 
-    <ng-container *ngIf="newAccount">
-        <form #newAccountForm="ngForm" (ngSubmit)="addUser(newAccountForm)">
-            <p>Easily create a new account by choosing your username and password.</p>
-            <b>Create Account:</b><br />
-            <input type="text" name="userName" placeholder="Username" required ngModel />
-            <br />
-            <input type="password" name="password" placeholder="Password" required ngModel />
-            <button class="btn btn-sm btn-primary">Submit</button>
-        </form>
-    </ng-container>
-</div>
+    <header id="filters">
+        <a href="#"><img src="http://clipart-library.com/images/rijKbAjRT.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+        <div class="w3-container">
+        <h1><b>Around The World In 80 Meals</b></h1>
+        <div class="w3-section w3-bottombar w3-padding-16">
+          <p>User Login & Account Creation</p>
+        </div>
+        </div>
+      </header>
 
-<div>
-    <ng-container *ngIf="user.id === -1">
-        <b>Invalid username or password.</b>
-    </ng-container>
-
-    <ng-container *ngIf="user.id === -2">
-        Account with this username already exists. Try again.
-    </ng-container>
-</div>
-
-<div *ngIf="user.id > 0">
-    <ng-container *ngIf="newAccount">
-        <p>You have successfully created your account.</p>
-    </ng-container>
-    
-    <b>Welcome, {{user.name}}!</b><br />
-    You are currently logged in.
-    <br /><br />
-    <form #logoutForm="ngForm" (ngSubmit)="logoutUser()">
-        <button class="btn btn-sm btn-primary">Logout</button>
-    </form>
-</div>
+      <div class="w3-section w3-padding-16 w3-center">
+        <p>Use your account to bookmark your favorite meals, rate them, and earn a passport stamp for each country meal you try.</p>
+        <div *ngIf="user.id <= 0">
+            <h2>Login</h2>
+            <ng-container *ngIf="!newAccount">
+                <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
+                    <b>Login:</b><br />
+                    <input type="text" name="userName" placeholder="Username" required ngModel />
+                    <br />
+                    <input type="password" name="password" placeholder="Password" required ngModel />
+                    <button class="btn btn-sm btn-primary">Submit</button>
+                    <p>
+                        If you don't have an account, you can
+                        <a [routerLink]="['/user-login', 'create']">create</a>
+                        one.
+                    </p>
+                </form>
+            </ng-container>
+        
+            <ng-container *ngIf="newAccount">
+                <form #newAccountForm="ngForm" (ngSubmit)="addUser(newAccountForm)">
+                    <p>Easily create a new account by choosing your username and password.</p>
+                    <b>Create Account:</b><br />
+                    <input type="text" name="userName" placeholder="Username" required ngModel />
+                    <br />
+                    <input type="password" name="password" placeholder="Password" required ngModel />
+                    <button class="btn btn-sm btn-primary">Submit</button>
+                </form>
+            </ng-container>
+        </div>
+        
+        <div>
+            <ng-container *ngIf="user.id === -1">
+                <b>Invalid username or password.</b>
+            </ng-container>
+        
+            <ng-container *ngIf="user.id === -2">
+                Account with this username already exists. Try again.
+            </ng-container>
+        </div>
+        
+        <div *ngIf="user.id > 0">
+            <ng-container *ngIf="newAccount">
+                <p>You have successfully created your account.</p>
+            </ng-container>
+            
+            <b>Welcome, {{user.name}}!</b><br />
+            You are currently logged in.
+            <br /><br />
+            <form #logoutForm="ngForm" (ngSubmit)="logoutUser()">
+                <button class="btn btn-sm btn-primary">Logout</button>
+            </form>
+        </div>
+        </div>
+      </div>
