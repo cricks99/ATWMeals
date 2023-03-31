@@ -16,8 +16,9 @@ choiceMeal: IMealDetail | undefined;
 mealId: string = "";
 mealName: string = "";
 countryName: string = "";
-nutritions: INutrition | any;
-ingredients: string = "salt";
+nutritions1:  any = "";
+nutritions2: INutrition | any;
+ingredients: string = "";
 
 constructor(private repositoryService: MealRepositoryService, private route: ActivatedRoute) {}
 
@@ -30,21 +31,57 @@ ngOnInit(): void {
   
 
   this.repositoryService.getRecipeById(this.mealId).subscribe(
-    (response) => {this.choiceMeal = response;}
+    (response) => {
+      this.choiceMeal = response;
+    
+      this.ingredients = this.choiceMeal.meals[0].strMeasure1 + " " + this.choiceMeal.meals[0].strIngredient1 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure2 + " " + this.choiceMeal.meals[0].strIngredient2 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure3 + " " + this.choiceMeal.meals[0].strIngredient3 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure4 + " " + this.choiceMeal.meals[0].strIngredient4 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure5 + " " + this.choiceMeal.meals[0].strIngredient5 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure6 + " " + this.choiceMeal.meals[0].strIngredient6 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure7 + " " + this.choiceMeal.meals[0].strIngredient7 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure8 + " " + this.choiceMeal.meals[0].strIngredient8 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure9 + " " + this.choiceMeal.meals[0].strIngredient9 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure10 + " " + this.choiceMeal.meals[0].strIngredient10 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure11 + " " + this.choiceMeal.meals[0].strIngredient11 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure12 + " " + this.choiceMeal.meals[0].strIngredient12 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure13 + " " + this.choiceMeal.meals[0].strIngredient13 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure14 + " " + this.choiceMeal.meals[0].strIngredient14 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure15 + " " + this.choiceMeal.meals[0].strIngredient15 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure16 + " " + this.choiceMeal.meals[0].strIngredient16 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure17 + " " + this.choiceMeal.meals[0].strIngredient17 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure18 + " " + this.choiceMeal.meals[0].strIngredient18 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure19 + " " + this.choiceMeal.meals[0].strIngredient19 + ", ";
+      this.ingredients += this.choiceMeal.meals[0].strMeasure20 + " " + this.choiceMeal.meals[0].strIngredient20;
+      
+       // does a call to get nutrition information
+      this.repositoryService.getNutrition(this.choiceMeal.meals[0].strMeasure1 + " " + this.choiceMeal.meals[0].strIngredient1).subscribe(
+      (response) => {this.nutritions1 = response;}
+
+
+
+    
+  )
+
+    }
   )
 
 
-  // does a call to get nutrition information
-  this.repositoryService.getNutrition(this.ingredients).subscribe(
-    (response) => {this.nutritions = response;}
-  )
+ 
+}
+
+getNutrition(ingredient: string){
+
+  
+
 }
 
 
 getIngredients(): void{
  let getingredient: string[] = [];
 
-  getingredient.push('strIngredient1');
+  getingredient.push('apple');
  
   // let getingredient: string[] = [];
   // this.getIngredients = [
