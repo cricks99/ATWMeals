@@ -12,9 +12,13 @@ import { IUser, MealRatings } from './interfaces/user';
 export class UserRepositoryService {
 
   constructor(private http: HttpClient) { }
-  apiUri: string = 'https://localhost:7077/api/User'
-  apiPassportUri: string = 'https://localhost:7077/api/Passport'
-  apiFavoriteUri: string = 'https://localhost:7077/api/Favorite'
+  // apiUri: string = 'https://localhost:7077/api/User'
+  // apiPassportUri: string = 'https://localhost:7077/api/Passport'
+  // apiFavoriteUri: string = 'https://localhost:7077/api/Favorite'
+
+  apiUri: string = 'https://atwmealsapi20230401.azurewebsites.net/api/User'
+  apiPassportUri: string = 'https://atwmealsapi20230401.azurewebsites.net/api/Passport'
+  apiFavoriteUri: string = 'https://atwmealsapi20230401.azurewebsites.net/api/Favorite'
 
   getUser(userName: string) {
     return this.http.get<IUser>(`${this.apiUri}/${userName}`)

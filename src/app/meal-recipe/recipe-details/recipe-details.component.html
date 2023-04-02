@@ -1,26 +1,69 @@
-<button onclick="window.close()">Close Tab</button>
-
-<p>
-    Meal details and nutrition information go here.
-<p>
-
-    <div *ngIf="choiceMeal">
-<!--     <h2>{{choiceMeal?.strMeal}}</h2> -->
+<div class="w3-main" style="margin-left:300px" *ngIf="choiceMeal">
     <div *ngFor="let detail of choiceMeal.meals">
-        <h2>{{detail.strMeal}}</h2>
+
+    <header id="filters">
+        <a href="#"><img src="http://clipart-library.com/images/rijKbAjRT.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+        <div class="w3-container">
+        <h1><b>Around The World In 80 Meals</b></h1>
+            <div class="w3-section w3-bottombar w3-padding-16">
+            <h2>{{detail.strMeal}} | {{ detail.strArea}} {{ detail.strCategory}}</h2>
+            
+            <p><a href="{{detail.strYoutube}}">Click to watch a video on this recipe</a></p>
+            <p>Recipe Tags: {{detail.strTags}}</p>
+            </div>
+        <app-ratings [countryName]="countryName" [mealId]="mealId" [mealName]="mealName"></app-ratings> 
+        </div>
+      </header>
+    
+    <div class="w3-section w3-padding-16">
+        <div align="center">
+            <img src="{{ detail.strMealThumb}}">
+        </div>
+        <br>
+        <div class="w3-margin">
+            <h2>What you'll need:</h2>
+            <P>{{ detail.strIngredient1}} {{ detail.strMeasure1}} {{nutritions1.name}} Calaries {{ nutritions1.calories}}</P>
+            <P>{{ detail.strIngredient2}} {{ detail.strMeasure2}}</P>
+            <P>{{ detail.strIngredient3}} {{ detail.strMeasure3}}</P>
+            <P>{{ detail.strIngredient4}} {{ detail.strMeasure4}}</P>
+            <P>{{ detail.strIngredient5}} {{ detail.strMeasure5}}</P>
+            <P>{{ detail.strIngredient6}} {{ detail.strMeasure6}}</P>
+            <P>{{ detail.strIngredient7}}  {{ detail.strMeasure7}}</P>
+            <P>{{ detail.strIngredient8}} {{ detail.strMeasure8}}</P>
+            <P>{{ detail.strIngredient9}} {{ detail.strMeasure9}}</P>
+            <P>{{ detail.strIngredient10}} {{ detail.strMeasure10}}</P>
+            <P>{{ detail.strIngredient11}} {{ detail.strMeasure11}}</P>
+            <P>{{ detail.strIngredient12}} {{ detail.strMeasure12}}</P>
+            <P>{{ detail.strIngredient13}} {{ detail.strMeasure13}}</P>
+            <P>{{ detail.strIngredient14}} {{ detail.strMeasure14}}</P>
+            <P>{{ detail.strIngredient15}} {{ detail.strMeasure15}}</P>
+            <P>{{ detail.strIngredient16}} {{ detail.strMeasure16}}</P>
+            <P>{{ detail.strIngredient17}} {{ detail.strMeasure17}}</P>
+            <P>{{ detail.strIngredient18}} {{ detail.strMeasure18}}</P>
+            <P>{{ detail.strIngredient19}} {{ detail.strMeasure19}}</P>
+            <P>{{ detail.strIngredient20}} {{ detail.strMeasure20}}</P>
+        </div>
+        <div class="w3-topbar w3-padding-16 w3-margin">
+            <h2>Let's make the meal:</h2>
+            <p>{{ detail.strInstructions}}</p>
+        </div>
+
+        <h2>Nutrition Details</h2>
+    <!-- <div *ngFor="let detail of nutritions">
+        <h2>{{detail.getIngredients}}</h2>
+        <p>{{detail.calories}}</p>
+    </div> -->
+
+    <!-- <ul>
+      <li *ngFor="let ingredient of getIngredients(choiceMeal)">
+        {{ ingredient }}
+      </li>
+    </ul>
+  </div> -->
+  <br>
+  <br>
+  <br>
+    </div>
     </div>
 </div>
-
-<!-- <div *ngFor="let detail of nutritions">
-    <h2>{{detail.name}}</h2>
-</div>
--->
-
-<div>
-    <button (click)="showMealDetails()">Show Meal Details</button>
-    <div *ngIf="choiceMeal">
-      <!-- display meal details here -->
-    </div>
-  </div>
-
-  <app-ratings [countryName]="countryName" [mealId]="mealId" [mealName]="mealName"></app-ratings>

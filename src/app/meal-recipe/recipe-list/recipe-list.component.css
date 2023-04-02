@@ -1,14 +1,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-body {
+/* body {
   padding:30px;
 }
 
-li{
-  padding:5px;
-  font-weight:bold;
-  list-style:none;
-}
+
 
 .grid {
   display: grid;
@@ -21,6 +17,21 @@ button {
   padding:5px;
   border-style:none;
   font-size: 30px;
+} */
+
+li{
+  padding:5px;
+  list-style:none;
+  text-align:justify;
+}
+
+dialog {
+  border-color: black;
+  overflow: scroll;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 600px;
+  width: 700px;
 }
 
 .favorite-star {

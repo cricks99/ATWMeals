@@ -11,17 +11,20 @@ import { INutrition } from './interfaces/nutrition';
   providedIn: 'root'
 })
 export class MealRepositoryService {
-  [x: string]: any;
-
   private areaApiUri = "https://www.themealdb.com/api/json/v1/1/filter.php?a="
   private ingredientApiUri = "https://www.themealdb.com/api/json/v1/1/filter.php?i="
   private categoryApiUri = "https://www.themealdb.com/api/json/v1/1/filter.php?c="
   private detailsApiUri = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="
-  private localMealApiUri = "https://localhost:7077/api/Meal"
-  private localMealRatingsAPiUri = "https://localhost:7077/api/MealRating"
-  private countryAPIUri = "https://localhost:7077/api/Country"
+
+  // private localMealApiUri = "https://localhost:7077/api/Meal"
+  // private localMealRatingsAPiUri = "https://localhost:7077/api/MealRating"
+  // private countryAPIUri = "https://localhost:7077/api/Country"
   private nutritionAPIUri = "https://api.api-ninjas.com/v1/nutrition?query="
   
+  private localMealApiUri = "https://atwmealsapi20230401.azurewebsites.net/api/Meal"
+  private localMealRatingsAPiUri = "https://atwmealsapi20230401.azurewebsites.net/api/MealRating"
+  private countryAPIUri = "https://atwmealsapi20230401.azurewebsites.net/api/Country"
+
   constructor(private http: HttpClient) { }
 
   getAllCountries() {
