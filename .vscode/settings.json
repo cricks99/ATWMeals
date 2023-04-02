@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/760436d6-7e72-49e4-944d-4867ca55a455/resourceGroups/gc_ah_2022/providers/Microsoft.Web/sites/ATWMeals",
+    "appService.deploySubpath": "dist\\atwmeals"
+}

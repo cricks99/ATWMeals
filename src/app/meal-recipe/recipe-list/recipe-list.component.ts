@@ -37,9 +37,9 @@ export class RecipeListComponent {
     if (savedUserId && +savedUserId > 0) {
       this.userRepo.getUserById(savedUserId).subscribe (
         (response) => {this.user = response;});
+    }
 
     this.getLocalMeals();
-    }
   }
 
   onSelect(country: any): void {
