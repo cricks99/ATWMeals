@@ -75,7 +75,7 @@ export class RecipeListComponent {
       (response) =>
       {
         this.localMeals = response;
-        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating).slice(0,10);
+        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating).slice(0,20);
       }
     )
   }
