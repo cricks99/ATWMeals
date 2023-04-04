@@ -1,3 +1,9 @@
+<ng-template #t let-fill="fill">
+  <i class="bi-star-fill">
+      <i *ngIf="fill > 0" class="bi-star-fill filled" [style.width.%]="fill"></i>
+  </i>
+</ng-template>
+
 <div class="book">
 
     <!-- For Next/Prev Controls -->
@@ -21,7 +27,7 @@
         </div>
         <div class="back" *ngIf="user">
           <p class="Amy">This passport belongs to:<br><br><span>{{user.name}}</span></p>
-          <br><br><img id="passportFade" src="https://www.pngall.com/wp-content/uploads/2/Travel-PNG-Download-Image.png">
+          <img id="passportFade" src="https://www.pngall.com/wp-content/uploads/2/Travel-PNG-Download-Image.png">
           <label for="c1" class="back-btn">CLOSE</label>
         </div>
       </div>
@@ -34,20 +40,16 @@
           <br><br><br>Click a country's flag to look back on your visit!<br><br>
           <div>
             <ng-container *ngFor="let passport of user.passports">
-                <button type="button" class="button" (click)="onSelect(passport.country.name)">
-                  <img id="flag" src="{{passport.country.flagURL}}">
-                  
-                  <!--<label for="c2">
-                    <img id="flag" src="{{passport.country.flagURL}}">
-                  </label>-->
+              <button type="button" class="button" (click)="onSelect(passport.country.name)">
+                <label for="c2"><img id="flag" src="{{passport.country.flagURL}}"></label>
                 </button>
             </ng-container>
         </div>
 
-          <label for="c2" class="next-btn">NEXT</label>
+          <!--<label for="c2" class="next-btn">NEXT</label>-->
         </div>
         <div class="back">
-          <br><br><br><br><br><br><img id="passportFade" src="https://www.pngall.com/wp-content/uploads/2/Travel-PNG-Download-Image.png">
+          <br><br><br><img id="passportFade" src="https://www.pngall.com/wp-content/uploads/2/Travel-PNG-Download-Image.png">
           <label for="c2" class="back-btn">BACK</label>
         </div>
       </div>
@@ -56,18 +58,30 @@
       <div class="flip" id="p3">
         <div class="front" *ngIf="user">
           <div class="form-group">
-            <label for="ratedMeals">Your past meals!</label>
-            <select id="ratedMeals" name="ratedMeals" ngModel class="form-control">
-              <!--<ng-container *ngFor="let mealRating of user.mealRatings">
-                
-                <ng-container *ngIf="mealRating.countryName === selectedPassportCountry">
-                  <ng-container *ngIf="setMealName(mealRating.mealId)">
-                  <option value="{{mealRating.mealId}}">{{mealRating.mealId}}</option>
-                  </ng-container>
-                </ng-container>
-              </ng-container>-->
+            <br><br><br><label for="ratedMeals">This is how you felt about these meals: </label><br><br>
 
+            <ng-container *ngFor="let mealRating of user.mealRatings">
+              <ng-container *ngIf="mealRating.countryName === selectedPassportCountry">
+                <ng-container>
+                  <p *ngIf="getMealName(mealRating.mealId)">{{getMealName(mealRating.mealId)}} | 
+                    <ngb-rating [rate]="userMealRating(mealRating.mealId)" [formControl]="ctrl" [starTemplate]="t" [max]="5" [readonly]="true"></ngb-rating>
+                    <br>({{userMealRating(mealRating.mealId)}} of 5 stars)
+                  </p>
+                  <button *ngIf="!getMealName(mealRating.mealId)" (click)="setMealName(mealRating.mealId)">
+                  </button>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <select [(ngModel)]="selectedMealId" (change)="onMealSelected()">
+              <option [ngValue]="null" disabled>Select a meal</option>
+              <option *ngFor="let mealRating of user.mealRatings" [ngValue]="mealRating.mealId">
+                {{ getMealName(mealRating.mealId) }}
+              </option>
             </select>
+            <div *ngIf="selectedMealData">
+              {{ selectedMealData }}
+            </div>
           </div>
           
           <!--<label for="c3" class="next-btn">NEXT</label>-->
@@ -79,54 +93,14 @@
     </div>
   </div>
 
-<!--<div *ngIf="user">
-  This passport belongs to {{user.name}}
-  <div *ngFor="let passport of user.passports">
-      <p>{{passport.country.name}}</p>
-  </div>
-</div>-->
+  <select id="ratedMeals" name="ratedMeals" ngModel class="form-control">
+    <ng-container *ngFor="let mealRating of user.mealRatings">
+      
+      <ng-container *ngIf="mealRating.countryName === selectedPassportCountry">
+        <ng-container *ngIf="setMealName(mealRating.mealId)">
+        <option value="{{mealRating.mealId}}">{{mealRating.mealId}}</option>
+        </ng-container>
+      </ng-container>
+    </ng-container>
 
-
-
-<!--<div *ngFor="let mealRating of user.mealRatings">
-  <div *ngIf=""
-  {{mealRating.mealId}}, Rating: {{mealRating.rating}}
-</div>-->
-
-<div *ngFor="let meal of sortedRatings">
-  {{meal.name}}, Rating: {{meal.avgRating}}
-</div>
-
-
-<!--<div class="grid">
-  <ng-container *ngFor="let passport of user.passports">
-      <button type="button" (click)="onSelect(passport)">
-          <span>{{user.passports}}</span><br>
-          <img src="{{country.flagURL}}">
-      </button>
-  </ng-container>
-</div>-->
-
-
-
-<!--<div *ngIf="selectedCountry">
-  <h2>{{selectedCountry}} Recipes</h2>
-  <ul *ngFor="let meal of countryMeals?.meals, index as idMeal"> -->
-      <!-- <li><a [routerLink] = "['/recipe-details', meal.idMeal]" routerLinkActive="active">{{meal.strMeal}}</a></li> -->
-      <!--<li>
-          <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +meal.idMeal)" class="favorite-button-icons">
-              <i>
-                  <ng-container *ngIf="isUserFavorite(+meal.idMeal); else nonFavorite">
-                      <mat-icon class="favorite-star" title="This is a favorite meal">star</mat-icon>
-                  </ng-container>
-                  
-                  <ng-template #nonFavorite>
-                      <mat-icon class="non-favorite-star" title="Click to make this a favorite meal">star_border</mat-icon>
-                  </ng-template>
-              </i>
-          </button>
-          
-          {{meal.strMeal}}
-      </li>
-  </ul>
-</div>-->
+  </select>
