@@ -1,4 +1,7 @@
-<div class="w3-main" style="margin-left:300px" *ngIf="choiceMeal">
+<div class="w3-main" *ngIf="choiceMeal">
+  <div class="closeButton">
+    <button onclick="window.close()">Close Tab</button>
+  </div>
     <div *ngFor="let detail of choiceMeal.meals">
 
     <header id="filters">
@@ -49,26 +52,26 @@
             <p>{{ detail.strInstructions}}</p>
         </div>
 
+          <div class="grid w3-container w3-margin-bottom">
+            <h2>Nutrition Details:</h2>
+            <div *ngFor="let detail of nutritions">
+              <b>{{detail.name}}</b><br />
+              Calories <b>|</b> {{detail.calories}}<br />
+              Serving Size <b>|</b> {{detail.serving_size_g}} g<br />
+              Fat Total <b>|</b> {{detail.fat_total_g}} g<br />
+              Saturated Fat <b>|</b> {{detail.fat_saturated_g}} g<br />
+              Protein <b>|</b> {{detail.protein_g}} g<br />
+              Sodium <b>|</b> {{detail.sodium_mg}} mg<br />
+              Potasium <b>|</b> {{detail.potassium_mg}} mg<br />
+              Cholesterol <b>|</b> {{detail.cholesterol_mg}} mg<br />
+              Carbs <b>|</b> {{detail.carbohydrates_total_g}} g<br />
+              Fiber <b>|</b> {{detail.fiber_g}} g<br />
+              Suger <b>|</b> {{detail.sugar_g}} g<br />
+            </div>
+        </div>
         
 
-
-        <h2>Nutrition Details</h2>
-
-        <div *ngFor="let detail of nutritions" class="w3-padding-16 w3-margin">
-            <h2>{{detail.getIngredients}}</h2>
-            Ingredient: {{detail.name}}<br />
-            Calories: {{detail.calories}}<br />
-            Serving Size {{detail.serving_size_g}} g<br />
-            Fat Total {{detail.fat_total_g}} g<br />
-            Saturated Fat {{detail.fat_saturated_g}} g<br />
-            Protein {{detail.protein_g}} g<br />
-            Sodium {{detail.sodium_mg}} mg<br />
-            Potasium {{detail.potassium_mg}} mg<br />
-            Cholesterol {{detail.cholesterol_mg}} mg<br />
-            Carbs {{detail.carbohydrates_total_g}} g<br />
-            Fiber {{detail.fiber_g}} g<br />
-            Suger {{detail.sugar_g}} g<br />
-        </div>
+        
     <!-- <div *ngFor="let detail of nutritions">
         <h2>{{detail.getIngredients}}</h2>
         Ingredient: {{detail.name}}<br />
