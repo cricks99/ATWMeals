@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ILocalMealRatings } from '../meal-recipe/interfaces/local-meal-ratings';
+import { IMeal } from '../meal-recipe/interfaces/meal';
 import { IFavorite } from './interfaces/favorite';
 import { IPassport } from './interfaces/passport';
-import { IUser } from './interfaces/user';
+import { IUser, MealRating } from './interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -54,4 +56,5 @@ export class UserRepositoryService {
   setUnsetFavorite(userId: number, mealId: number) {
     return this.http.post(`${this.apiFavoriteUri}/setUnset/${userId}/${mealId}`, null);
   }
+
 }
