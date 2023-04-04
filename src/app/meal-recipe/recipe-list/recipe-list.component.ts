@@ -25,10 +25,9 @@ export class RecipeListComponent {
   ingRecipes: IMeal | undefined;
   localMeals: any = [];
   sortedRatings: any;
-  
-  // = {id: 0, mealDBId: 0, name: "", countryId: 0, avgRating: 0,
-  //   country: {id: 0, name: "", flagURL: ""},
-  //   mealRating: {id: 0, rating: 0, mealId: 0, userId: 0}}
+  showTop10: boolean = false;
+  showIngSearch: boolean = false;
+  showCountryFlags: boolean = true;
 
   user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
 
@@ -58,7 +57,6 @@ export class RecipeListComponent {
           this.foundIngredients = true;
         }
       )
-      form.resetForm();
   }
 
   isUserFavorite(mealId: number): boolean
@@ -77,16 +75,28 @@ export class RecipeListComponent {
       (response) =>
       {
         this.localMeals = response;
-        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating)
+        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating).slice(0,10);
       }
     )
   }
 
-  // filterByRating() {
-  //   return this.localMeals.sort(this.localMeals.avgRating);
-  // }
+  toggleTop10(): void{
+    this.showTop10 = true;
+    this.showIngSearch = false;
+    this.showCountryFlags = false;
+  }
 
-  
+  toggleIngSearch(): void{
+    this.showIngSearch = true;
+    this.showTop10 = false;
+    this.showCountryFlags = false;
+  }
+
+  toggleCountryFlags(): void{
+    this.showCountryFlags = true;
+    this.showTop10 = false;
+    this.showIngSearch = false;
+  }
 
   ngOnInit(): void {
     this.getUserObject();

@@ -122,6 +122,11 @@ namespace ATWMealsAPI.DAL
         .FirstOrDefault();
     }
 
+    public string GetCountryName(int mealId)
+    {
+      return GetMealById(mealId).Country.Name;
+    }
+
     public void AddMeal(Meal newMeal)
     {
       _dbContext.Meals.Add(newMeal);

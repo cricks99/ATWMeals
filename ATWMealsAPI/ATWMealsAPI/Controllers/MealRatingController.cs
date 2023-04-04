@@ -14,13 +14,29 @@ namespace ATWMealsAPI.Controllers
     [HttpGet("{mealId}")]
     public List<MealRating> GetRatingsByMealId(int mealId)
     {
-      return repo.GetRatingsByMealId(mealId);
+      List<MealRating> mealRatings = new List<MealRating>();
+
+      foreach(MealRating mealRating in repo.GetRatingsByMealId(mealId))
+      {
+        mealRating.CountryName = repo.GetCountryName(mealId);
+        mealRatings.Add(mealRating);
+      }
+
+      return mealRatings;
     }
 
     [HttpGet("user/{userId}")]
     public List<MealRating> GetRatingsByUserId(int userId)
     {
-      return repo.GetRatingsByUserId(userId);
+      List<MealRating> mealRatings = new List<MealRating>();
+
+      foreach (MealRating mealRating in repo.GetRatingsByUserId(userId))
+      {
+        mealRating.CountryName = repo.GetCountryName(mealRating.MealId);
+        mealRatings.Add(mealRating);
+      }
+
+      return mealRatings;
     }
 
     [HttpGet("average/{mealId}")]
