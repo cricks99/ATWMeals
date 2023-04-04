@@ -37,9 +37,9 @@ export class RecipeListComponent {
     if (savedUserId && +savedUserId > 0) {
       this.userRepo.getUserById(savedUserId).subscribe (
         (response) => {this.user = response;});
+    }
 
     this.getLocalMeals();
-    }
   }
 
   onSelect(country: any): void {
@@ -75,7 +75,7 @@ export class RecipeListComponent {
       (response) =>
       {
         this.localMeals = response;
-        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating).slice(0,10);
+        this.sortedRatings = this.localMeals.sort((a: any, b: any) => b.avgRating - a.avgRating).slice(0,20);
       }
     )
   }
