@@ -17,8 +17,8 @@ mealId: string = "";
 mealName: string = "";
 countryName: string = "";
 
-nutritions1:  any = "";
-nutritions2: INutrition | any;
+
+nutritions: INutrition | any;
 
 ingredients: string = "";
 
