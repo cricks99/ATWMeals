@@ -49,11 +49,25 @@
             <p>{{ detail.strInstructions}}</p>
         </div>
 
+
+
+
         <h2>Nutrition Details</h2>
     <!-- <div *ngFor="let detail of nutritions">
         <h2>{{detail.getIngredients}}</h2>
-        <p>{{detail.calories}}</p>
-    </div> -->
+        Ingredient: {{detail.name}}<br />
+        Calories: {{detail.calories}}<br />
+        Serving Size {{detail.serving_size_g}} g<br />
+        Fat Total {{detail.fat_total_g}} g<br />
+        Saturated Fat {{detail.fat_saturated_g}} g<br />
+        Protein {{detail.protein_g}} g<br />
+        Sodium {{detail.sodium_mg}} mg<br />
+        Potasium {{detail.potassium_mg}} mg<br />
+        Cholesterol {{detail.cholesterol_mg}} mg<br />
+        Carbs {{detail.carbohydrates_total_g}} g<br />
+        Fiber {{detail.fiber_g}} g<br />
+        Suger {{detail.sugar_g}} g<br />
+    </div>
 
     <!-- <ul>
       <li *ngFor="let ingredient of getIngredients(choiceMeal)">

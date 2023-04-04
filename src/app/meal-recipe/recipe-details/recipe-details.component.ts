@@ -19,6 +19,7 @@ countryName: string = "";
 
 nutritions1:  any = "";
 nutritions2: INutrition | any;
+
 ingredients: string = "";
 
 
@@ -58,8 +59,8 @@ ngOnInit(): void {
       this.ingredients += this.choiceMeal.meals[0].strMeasure20 + " " + this.choiceMeal.meals[0].strIngredient20;
       
        // does a call to get nutrition information
-      this.repositoryService.getNutrition(this.choiceMeal.meals[0].strMeasure1 + " " + this.choiceMeal.meals[0].strIngredient1).subscribe(
-      (response) => {this.nutritions1 = response;}
+      this.repositoryService.getNutrition(this.ingredients).subscribe(
+      (response) => {this.nutritions = response;}
 
 
   //create an array with 2 strings
