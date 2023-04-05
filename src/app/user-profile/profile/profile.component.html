@@ -16,10 +16,7 @@
       </div>
     </header>
 
-    <div *ngIf="showPassport" class ="none" style="margin-left:0">
-        <app-passport></app-passport>
-        <br><br><br>
-    </div>
+    
 
     <div align="center">
         <div *ngIf="showFavorites">
@@ -28,5 +25,9 @@
         </div>
     </div>
 
+</div>
 
-
+<div *ngIf="showPassport" class ="none" style="margin-left:0">
+  <app-passport></app-passport>
+  <br><br><br>
+</div>
