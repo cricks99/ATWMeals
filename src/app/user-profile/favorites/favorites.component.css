@@ -1,0 +1,31 @@
+.favorite-star {
+    color: lightblue;
+  }
+  
+  .non-favorite-star {
+    color: aqua
+  }
+  
+  .favorite-button-icons {
+      padding: 0;
+      border: none;
+      background: none;
+      padding-left: 5px;
+  }
+  
+  /* favorite ratings start */
+  i {
+    position: relative;
+    display: inline-block;
+    font-size: .8rem;
+    padding-right: 0.1rem;
+    color: #d3d3d3;
+  }
+  
+  .filled {
+    color: yellowgreen;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }

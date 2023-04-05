@@ -1,2 +1,32 @@
-<app-passport></app-passport>
-<app-favorites></app-favorites>
+<!-- !PAGE CONTENT! -->
+
+<div class="w3-main" style="margin-left:300px">
+    
+    <!-- Header -->
+    <header id="filters">
+      <a href="#"><img src="http://clipart-library.com/images/rijKbAjRT.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+      <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+      <div class="w3-container">
+      <h1><b>Around The World In 80 Meals</b></h1>
+      <div class="w3-section w3-bottombar w3-padding-16">
+        <span *ngIf="user" class="w3-margin-right">Hello, {{user.name}}!</span>
+        <button class="w3-button w3-black" (click)="togglePassport()"><i class="fa fa-globe w3-margin-right"></i>Meal Passport</button>
+        <button class="w3-button w3-white w3-hide-small" (click)="toggleFavorites()"><i class="fa fa-star w3-margin-right"></i>Favorite Recipes</button>
+      </div>
+      </div>
+    </header>
+
+    <div *ngIf="showPassport" class ="none" style="margin-left:0">
+        <app-passport></app-passport>
+        <br><br><br>
+    </div>
+
+    <div align="center">
+        <div *ngIf="showFavorites">
+            <app-favorites></app-favorites>
+            <br><br><br>
+        </div>
+    </div>
+
+
+

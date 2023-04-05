@@ -33,11 +33,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 <router-outlet></router-outlet>
 
 <!-- Footer -->
-<footer class="w3-container w3-dark-grey">
+<footer *ngIf="!router.url.includes('/recipe-details')" class="w3-container w3-dark-grey">
   <div class="w3-row-padding">
-    <div class="w3-center">
-      <h3>AROUND THE WORLD IN 80 MEALS WAS COOKED UP BY</h3>
-      <p>Amelia G., Craig R., Kim V., & Nick K.</p>
+    <div style="margin-left:320px">
+      <br>
+      <h3>AROUND THE WORLD IN 80 MEALS WAS COOKED UP BY | Amelia G., Craig R., Kim V., & Nick K.</h3>
     </div>
   </div>
   </footer>
