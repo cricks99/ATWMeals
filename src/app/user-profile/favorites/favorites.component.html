@@ -1,6 +1,15 @@
 <div *ngIf="user && user.id > 0" class="w3-section w3-padding-16 w3-center">
-    <h2>My Favorites</h2>
-    <p class="w3-section w3-padding-16 w3-center" *ngFor="let favorite of user.favorites">
+    <h2>Your Favorites</h2>
+    <p class="w3-section w3-padding-16 w3-center" *ngFor="let favorite of user.favorites, index as mealId">
+
+        <button *ngIf="user.id > 0" (click)="setUnsetFavorite(user.id, +favorite.mealId)" class="favorite-button-icons">
+            <i>
+                <ng-container *ngIf="isUserFavorite(+favorite.mealId)">
+                    <mat-icon class="favorite-star" title="Remove Favorite">star</mat-icon>
+                </ng-container>
+            </i>
+        </button>
+
         <a [routerLink] = "['/recipe-details', favorite.mealId, 'UNK', getMealName(favorite.mealId)]" target="_blank">{{getMealName(favorite.mealId)}}</a>
     </p>
 </div>

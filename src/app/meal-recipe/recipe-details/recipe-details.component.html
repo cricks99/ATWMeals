@@ -50,27 +50,31 @@
         <div class="w3-topbar w3-padding-16 w3-margin">
             <h2>Let's make the meal:</h2>
             <p>{{ detail.strInstructions}}</p>
+
+            <br>
+            <b><button class="w3-button w3-black" (click)="nutritionFacts.showModal()">
+              Click to see information on the nutrition of this meal</button></b>
         </div>
 
-          <div class="grid w3-container w3-margin-bottom">
-            <h2>Nutrition Details:</h2>
-            <div *ngFor="let detail of nutritions">
-              <b>{{detail.name}}</b><br />
-              Calories <b>|</b> {{detail.calories}}<br />
-              Serving Size <b>|</b> {{detail.serving_size_g}} g<br />
-              Fat Total <b>|</b> {{detail.fat_total_g}} g<br />
-              Saturated Fat <b>|</b> {{detail.fat_saturated_g}} g<br />
-              Protein <b>|</b> {{detail.protein_g}} g<br />
-              Sodium <b>|</b> {{detail.sodium_mg}} mg<br />
-              Potasium <b>|</b> {{detail.potassium_mg}} mg<br />
-              Cholesterol <b>|</b> {{detail.cholesterol_mg}} mg<br />
-              Carbs <b>|</b> {{detail.carbohydrates_total_g}} g<br />
-              Fiber <b>|</b> {{detail.fiber_g}} g<br />
-              Suger <b>|</b> {{detail.sugar_g}} g<br />
-            </div>
-        </div>
-        
-
+        <dialog #nutritionFacts>
+          <h2>{{detail.strMeal}} Ingredient Nutrition</h2>
+          <div *ngFor="let detail of nutritions">
+            <b>{{detail.name}}</b><br />
+            Calories <b>|</b> {{detail.calories}}<br />
+            Serving Size <b>|</b> {{detail.serving_size_g}} g<br />
+            Fat Total <b>|</b> {{detail.fat_total_g}} g<br />
+            Saturated Fat <b>|</b> {{detail.fat_saturated_g}} g<br />
+            Protein <b>|</b> {{detail.protein_g}} g<br />
+            Sodium <b>|</b> {{detail.sodium_mg}} mg<br />
+            Potasium <b>|</b> {{detail.potassium_mg}} mg<br />
+            Cholesterol <b>|</b> {{detail.cholesterol_mg}} mg<br />
+            Carbs <b>|</b> {{detail.carbohydrates_total_g}} g<br />
+            Fiber <b>|</b> {{detail.fiber_g}} g<br />
+            Suger <b>|</b> {{detail.sugar_g}} g<br />
+            <br>
+          </div>
+          <button (click)="nutritionFacts.close()">Close</button>
+      </dialog>
         
     <!-- <div *ngFor="let detail of nutritions">
         <h2>{{detail.getIngredients}}</h2>

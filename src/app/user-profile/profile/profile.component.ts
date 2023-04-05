@@ -16,6 +16,8 @@ export class ProfileComponent {
     user: IUser = {id: 0, name: "", password: "", favorites: [], passports: [], mealRatings: []}
     countries: any;
     selectedCountry?: any;
+    showFavorites: boolean = false;
+    showPassport: boolean = true;
 
     getUserObject() {
     let savedUserId = this.localStore.getData("userId");
@@ -24,6 +26,16 @@ export class ProfileComponent {
       this.userRepo.getUserById(savedUserId).subscribe (
         (response) => {this.user = response;});
     }
+  }
+
+  toggleFavorites(): void{
+    this.showFavorites = true;
+    this.showPassport = false;
+  }
+
+  togglePassport(): void{
+    this.showFavorites = false;
+    this.showPassport = true;
   }
 
   ngOnInit(): void {
