@@ -61,7 +61,7 @@
             <div *ngFor="let passport of user.passports">
               <div *ngIf="selectedPassportCountry === passport.country.name"><br><img id="pageFlag" src="{{passport.country.flagURL}}"></div>
             </div>
-            <br><h3 for="ratedMeals">This is how you felt about the cuisine: </h3>
+            <br><h3 for="ratedMeals">This is how you felt about the {{selectedPassportCountry}} cuisine: </h3>
             <div class="myBox">
             <div *ngFor="let mealRating of user.mealRatings">
               <div *ngIf="mealRating.countryName === selectedPassportCountry">
