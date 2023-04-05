@@ -1,8 +1,9 @@
 .book {
     display: flex;
+    
   }
   #cover {
-    width: 437px;
+    width: 750px;
     height: 612px;
   }
   .flip-book {
@@ -22,6 +23,7 @@
     transform: rotateY(0deg);
     transition: .5s;
     color: #000;
+    
   }
   .front {
     position: absolute;
@@ -33,15 +35,18 @@
     box-sizing: border-box;
     padding: 0 13px;
     text-align: center;
-    border: 2px solid darkblue;
+    border: 2px solid darkslateblue;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 1;
   }
   .back {
     position: absolute;
     width: 437px;
-    height: 612px;
+    height: 616px;
     top: 0;
     left: 0;
-    z-index: 25;
+    z-index: 1;
     transform: rotateY(180deg);
     backface-visibility:hidden;
     background-color: #feffe0;
@@ -52,7 +57,9 @@
     /*display: inline-block;
     vertical-align: middle;
     line-height: normal;*/
-    border: 2px solid darkblue;
+    border: 2px solid darkslateblue;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
   }
   .next-btn {
     position: absolute;
@@ -109,4 +116,50 @@
 
   #passportImage {
     object-position: top 0 left 0px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+
+  #flag {
+    border-radius: 50px;
+    width: 52.5px;
+    height: 52.5px;
+    border: 3px solid black;
+  }
+  #passportFade {
+    position:relative;
+    opacity: 25%;
+    width: 400px;
+    z-index: -1;
+    /*background-image:url(https://www.pngall.com/wp-content/uploads/2/Travel-PNG-Download-Image.png);*/
+    
+  }
+
+  .button {
+    background-color: #feffe0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+  }
+
+  .Amy {
+    position: relative;
+    top: 225px;
+  }
+
+  i {
+    position: relative;
+    display: inline-block;
+    font-size: 1.25rem;
+    padding-right: 0.1rem;
+    color: #d3d3d3;
+  }
+  
+  .filled {
+    color: blue;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
   }

@@ -1,1 +1,6 @@
-<p>favorites works!</p>
+<div *ngIf="user && user.id > 0" class="w3-section w3-padding-16 w3-center">
+    <h2>My Favorites</h2>
+    <p class="w3-section w3-padding-16 w3-center" *ngFor="let favorite of user.favorites">
+        <a [routerLink] = "['/recipe-details', favorite.mealId, 'UNK', getMealName(favorite.mealId)]" target="_blank">{{getMealName(favorite.mealId)}}</a>
+    </p>
+</div>
