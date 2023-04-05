@@ -64,7 +64,9 @@ export class UserLoginComponent {
          this.user = response;
          
          if (this.user.id > 0)
-           this.localStore.saveData("userId", this.user.id.toString());   
+           this.localStore.saveData("userId", this.user.id.toString());
+          
+         location.reload();
        });
    }
  
@@ -72,5 +74,7 @@ export class UserLoginComponent {
   {
     this.user.id = 0;
     this.localStore.removeData("userId");
+
+    location.reload();
   }
 }
