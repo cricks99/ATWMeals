@@ -36,8 +36,8 @@
       <div class="flip" id="p2">
         <div class="front" *ngIf="user">
           
-          <br><br><br><br>You have experienced {{totalUserCountryCount()}} countries!
-          <br><br><br>Click a country's flag to look back on your visit!<br><br>
+          <br><br><br><h2>You have tried <span style="color:red">{{totalUserCountryCount()}}</span> of <span style="color:red">26</span> countries!</h2>
+          <br><h3 style="font-style:italic">Click a country's flag to look back on it's cuisine!</h3><br><br>
           <div>
             <ng-container *ngFor="let passport of user.passports">
               <button type="button" class="button" (click)="onSelect(passport.country.name)">
@@ -58,32 +58,24 @@
       <div class="flip" id="p3">
         <div class="front" *ngIf="user">
           <div class="form-group">
-            <br><br><br><label for="ratedMeals">This is how you felt about these meals: </label><br><br>
-
-            <ng-container *ngFor="let mealRating of user.mealRatings">
-              <ng-container *ngIf="mealRating.countryName === selectedPassportCountry">
+            <div *ngFor="let passport of user.passports">
+              <div *ngIf="selectedPassportCountry === passport.country.name"><br><img id="pageFlag" src="{{passport.country.flagURL}}"></div>
+            </div>
+            <br><h3 for="ratedMeals">This is how you felt about the cuisine: </h3>
+            <div class="myBox">
+            <div *ngFor="let mealRating of user.mealRatings">
+              <div *ngIf="mealRating.countryName === selectedPassportCountry">
                 <ng-container>
-                  <p *ngIf="getMealName(mealRating.mealId)">{{getMealName(mealRating.mealId)}} | 
+                  <p *ngIf="getMealName(mealRating.mealId)"><span style="font-weight:bolder">{{getMealName(mealRating.mealId)}}</span> | 
                     <ngb-rating [rate]="userMealRating(mealRating.mealId)" [formControl]="ctrl" [starTemplate]="t" [max]="5" [readonly]="true"></ngb-rating>
-                    <br>({{userMealRating(mealRating.mealId)}} of 5 stars)
+                    <br><span style="font-style:oblique">({{userMealRating(mealRating.mealId)}} of 5 stars)</span>
                   </p>
                   <button *ngIf="!getMealName(mealRating.mealId)" (click)="setMealName(mealRating.mealId)">
                   </button>
                 </ng-container>
-              </ng-container>
-            </ng-container>
-
-            <select [(ngModel)]="selectedMealId" (change)="onMealSelected()">
-              <option [ngValue]="null" disabled>Select a meal</option>
-              <option *ngFor="let mealRating of user.mealRatings" [ngValue]="mealRating.mealId">
-                {{ getMealName(mealRating.mealId) }}
-              </option>
-            </select>
-            <div *ngIf="selectedMealData">
-              {{ selectedMealData }}
+              </div>
             </div>
           </div>
-          
           <!--<label for="c3" class="next-btn">NEXT</label>-->
         </div>
         <div class="back">
