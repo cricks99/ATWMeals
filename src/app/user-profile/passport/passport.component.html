@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <select id="ratedMeals" name="ratedMeals" ngModel class="form-control">
+  <select id="ratedMeals" hidden="hidden" name="ratedMeals" ngModel class="form-control">
     <ng-container *ngFor="let mealRating of user.mealRatings">
       
       <ng-container *ngIf="mealRating.countryName === selectedPassportCountry">
