@@ -63,10 +63,10 @@ export class UserLoginComponent {
        (response) => {
          this.user = response;
          
-         if (this.user.id > 0)
-           this.localStore.saveData("userId", this.user.id.toString());
-          
-         location.reload();
+        if (this.user.id > 0) {
+          this.localStore.saveData("userId", this.user.id.toString());
+          location.reload();
+         }
        });
    }
  
