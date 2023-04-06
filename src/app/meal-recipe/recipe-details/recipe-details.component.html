@@ -12,7 +12,7 @@
             <div class="w3-section w3-bottombar w3-padding-16">
             <h2>{{detail.strMeal}} | {{ detail.strArea}} {{ detail.strCategory}}</h2>
             
-            <p><a href="{{detail.strYoutube}}">Click to watch a video on this recipe</a></p>
+            <p *ngIf="detail.strYoutube != ''"><a href="{{detail.strYoutube}}">Click to watch a video on this recipe</a></p>
             <p>Recipe Tags: {{detail.strTags}}</p>
             </div>
         <app-ratings [countryName]="countryName" [mealId]="mealId" [mealName]="mealName"></app-ratings> 
