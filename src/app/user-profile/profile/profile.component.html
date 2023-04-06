@@ -8,17 +8,18 @@
       <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
       <div class="w3-container">
       <h1><b>Around The World In 80 Meals</b></h1>
-      <div class="w3-section w3-bottombar w3-padding-16">
-        <span *ngIf="user" class="w3-margin-right">Hello, {{user.name}}!</span>
+      <div class="w3-section w3-bottombar w3-padding-16" *ngIf="user.id > 0">
+        <span class="w3-margin-right">Hello, {{user.name}}!</span>
         <button class="w3-button w3-black" (click)="togglePassport()"><i class="fa fa-globe w3-margin-right"></i>Meal Passport</button>
         <button class="w3-button w3-white w3-hide-small" (click)="toggleFavorites()"><i class="fa fa-star w3-margin-right"></i>Favorite Recipes</button>
       </div>
+      <ng-container *ngIf="user.id === 0">Please log in to view your passport and favorites.</ng-container>
       </div>
     </header>
 
     
 
-    <div align="center">
+    <div align="center" *ngIf="user.id > 0">
         <div *ngIf="showFavorites">
             <app-favorites></app-favorites>
             <br><br><br>
@@ -27,7 +28,7 @@
 
 </div>
 
-<div *ngIf="showPassport" class ="none" style="margin-left:0">
+<div *ngIf="showPassport && user.id > 0" class ="none" style="margin-left:0">
   <app-passport></app-passport>
   <br><br><br>
 </div>
